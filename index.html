@@ -33,39 +33,43 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent2)}
 
-.section-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.section-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:1px;display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .section-title::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px;flex-shrink:0}
 
 /* DASHBOARD */
-.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px;margin-bottom:20px}
 .dash-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
 .dash-card .label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.dash-card .value{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.dash-card .value{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;color:var(--text);line-height:1}
 .dash-card .sub{font-size:12px;color:var(--muted);margin-top:5px}
-.dash-card.highlight .value{color:var(--accent2)}
-.dash-card.highlight{border-color:rgba(224,92,0,.3)}
+.dash-card.orange .value{color:var(--accent2)}
+.dash-card.orange{border-color:rgba(224,92,0,.3)}
+.dash-card.green .value{color:var(--green)}
+.dash-card.green{border-color:rgba(63,185,80,.3)}
+.dash-card.blue .value{color:var(--blue)}
+.dash-card.blue{border-color:rgba(88,166,255,.3)}
 
 /* GRÁFICO */
 .chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
-.chart-bars{display:flex;align-items:flex-end;gap:12px;height:160px;margin-top:16px;padding:0 4px}
+.chart-bars{display:flex;align-items:flex-end;gap:12px;height:160px;margin-top:4px;padding:0 4px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
 .bar-val{font-size:13px;font-weight:600;color:var(--text)}
 .bar{width:100%;background:var(--accent);border-radius:4px 4px 0 0;transition:height .4s ease;min-height:4px}
 .bar-label{font-size:12px;color:var(--muted);white-space:nowrap}
 
-/* DESTAQUE DO MÊS */
+/* DESTAQUE POR MÊS */
 .highlight-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
-.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .highlight-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:12px}
-.highlight-rank{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--accent);min-width:28px}
+.highlight-rank{font-size:22px;min-width:28px;text-align:center}
 .highlight-info .name{font-size:13px;font-weight:500;color:var(--text)}
 .highlight-info .count{font-size:12px;color:var(--muted);margin-top:2px}
-.highlight-mes-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.highlight-info .mes{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
 
 /* FILTROS */
 .filters-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px}
 .filters-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-.filters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;align-items:end}
+.filters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;align-items:end}
 .filter-group label{display:block;font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
 .filter-group select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:7px 30px 7px 10px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
 .filter-group select:focus{outline:none;border-color:var(--accent)}
@@ -128,26 +132,26 @@ td.muted{color:var(--muted)}
   </div>
 
   <!-- DASHBOARD -->
-  <div class="dashboard" id="dashboard">
+  <div class="dashboard">
     <div class="dash-card">
-      <div class="label">Total de Registros</div>
+      <div class="label">Total de Participações</div>
       <div class="value" id="d-total">—</div>
-      <div class="sub">no período filtrado</div>
+      <div class="sub" id="d-total-sub">registros no período</div>
     </div>
-    <div class="dash-card">
+    <div class="dash-card green">
       <div class="label">Operações</div>
       <div class="value" id="d-operacoes">—</div>
-      <div class="sub">tipo OPERAÇÃO</div>
+      <div class="sub" id="d-operacoes-sub">operações distintas</div>
     </div>
-    <div class="dash-card">
+    <div class="dash-card orange">
       <div class="label">Extras</div>
       <div class="value" id="d-extras">—</div>
-      <div class="sub">tipo EXTRA</div>
+      <div class="sub" id="d-extras-sub">serviços extras distintos</div>
     </div>
-    <div class="dash-card highlight">
-      <div class="label">Militares Envolvidos</div>
-      <div class="value" id="d-militares">—</div>
-      <div class="sub">distintos</div>
+    <div class="dash-card blue">
+      <div class="label">Militares Escalados</div>
+      <div class="value" id="d-escalados">—</div>
+      <div class="sub" id="d-escalados-sub">de <span id="d-total-mil">—</span> cadastrados</div>
     </div>
   </div>
 
@@ -158,7 +162,7 @@ td.muted{color:var(--muted)}
   </div>
 
   <!-- DESTAQUE POR MÊS -->
-  <div class="highlight-box" id="highlight-box">
+  <div class="highlight-box">
     <div class="section-title">Militar com Mais Participações por Mês</div>
     <div class="highlight-grid" id="highlight-grid"></div>
   </div>
@@ -194,7 +198,7 @@ td.muted{color:var(--muted)}
   <!-- TABELA -->
   <div class="table-box">
     <div class="table-head">
-      <div class="section-title">Registros de Operações</div>
+      <div class="section-title" style="margin-bottom:0">Registros de Operações</div>
       <div class="table-count" id="table-count"></div>
     </div>
     <div id="table-body"></div>
@@ -206,11 +210,17 @@ td.muted{color:var(--muted)}
 const PER_PAGE = 20;
 const MES_ORDER = {janeiro:1,fevereiro:2,março:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
 
-let allData = [];
-let filtered = [];
-let currentPage = 1;
-let sortCol = 'DATA';
-let sortDir = 'asc';
+const URL_REGISTRO  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=437673601&single=true&output=csv';
+const URL_OPERACOES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=2142908276&single=true&output=csv';
+const URL_MILITARES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=70108019&single=true&output=csv';
+
+let allData      = [];
+let allMilitares = [];
+let allOperacoes = [];
+let filtered     = [];
+let currentPage  = 1;
+let sortCol      = 'DATA';
+let sortDir      = 'asc';
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function formatData(s){
@@ -230,10 +240,34 @@ function setStatus(type, msg){
   txt.style.color = type === 'error' ? 'var(--red)' : '';
 }
 
+// ── CARREGAR AS 3 ABAS ─────────────────────────────────────────
+function loadAll(){
+  setStatus('loading', 'Carregando dados...');
+  let done = 0;
+  function check(){ if(++done === 3){ setStatus('ok', allData.length + ' registros carregados'); buildFilters(); applyFilters(); } }
+
+  Papa.parse(URL_REGISTRO, {
+    download:true, header:true, skipEmptyLines:true,
+    complete(r){ allData = r.data || []; check(); },
+    error(){ setStatus('error','Erro ao carregar registros.'); }
+  });
+  Papa.parse(URL_MILITARES, {
+    download:true, header:true, skipEmptyLines:true,
+    complete(r){ allMilitares = r.data || []; check(); },
+    error(){ check(); }
+  });
+  Papa.parse(URL_OPERACOES, {
+    download:true, header:true, skipEmptyLines:true,
+    complete(r){ allOperacoes = r.data || []; check(); },
+    error(){ check(); }
+  });
+}
+
+// ── FILTROS ────────────────────────────────────────────────────
 function buildFilters(){
   fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
-  fillSelect('f-mes', sortMes(uniq(allData.map(r=>r['MÊS']))), true);
-  fillSelect('f-tipo', uniq(allData.map(r=>r['TIPO'])).sort(), false);
+  fillSelect('f-mes',     sortMes(uniq(allData.map(r=>r['MÊS']))), true);
+  fillSelect('f-tipo',    uniq(allData.map(r=>r['TIPO'])).sort(), false);
   fillSelect('f-servico', uniq(allData.map(r=>r['SERVIÇO'])).sort(), false);
   fillSelect('f-pagamento', uniq(allData.map(r=>r['PAGAMENTO'])).sort(), false);
 }
@@ -257,11 +291,11 @@ function resetFilters(){
 }
 
 function applyFilters(){
-  const mil = document.getElementById('f-militar').value;
-  const mes = document.getElementById('f-mes').value;
+  const mil  = document.getElementById('f-militar').value;
+  const mes  = document.getElementById('f-mes').value;
   const tipo = document.getElementById('f-tipo').value;
-  const svc = document.getElementById('f-servico').value;
-  const pag = document.getElementById('f-pagamento').value;
+  const svc  = document.getElementById('f-servico').value;
+  const pag  = document.getElementById('f-pagamento').value;
 
   filtered = allData.filter(r => {
     if(mil  && r['MILITAR'] !== mil) return false;
@@ -286,15 +320,33 @@ function applyFilters(){
 
 // ── DASHBOARD ──────────────────────────────────────────────────
 function renderDashboard(){
-  const total     = filtered.length;
-  const operacoes = filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='OPERAÇÃO').length;
-  const extras    = filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='EXTRA').length;
-  const militares = uniq(filtered.map(r=>r['MILITAR'])).length;
+  const total = filtered.length;
 
-  document.getElementById('d-total').textContent     = total;
-  document.getElementById('d-operacoes').textContent = operacoes;
-  document.getElementById('d-extras').textContent    = extras;
-  document.getElementById('d-militares').textContent = militares;
+  // Operações únicas (TIPO = OPERAÇÃO)
+  const operacoesUnicas = uniq(
+    filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='OPERAÇÃO').map(r=>r['SERVIÇO'])
+  ).length;
+
+  // Extras únicas (TIPO = EXTRA)
+  const extrasUnicas = uniq(
+    filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='EXTRA').map(r=>r['SERVIÇO'])
+  ).length;
+
+  // Militares escalados no período filtrado vs total cadastrado
+  const escalados    = uniq(filtered.map(r=>r['MILITAR'])).length;
+  const totalMil     = allMilitares.length;
+
+  document.getElementById('d-total').textContent      = total;
+  document.getElementById('d-operacoes').textContent  = operacoesUnicas;
+  document.getElementById('d-extras').textContent     = extrasUnicas;
+  document.getElementById('d-escalados').textContent  = escalados;
+  document.getElementById('d-total-mil').textContent  = totalMil;
+
+  // Sub labels contextuais
+  document.getElementById('d-operacoes-sub').textContent =
+    operacoesUnicas === 1 ? '1 operação distinta' : operacoesUnicas + ' operações distintas';
+  document.getElementById('d-extras-sub').textContent =
+    extrasUnicas === 1 ? '1 serviço extra distinto' : extrasUnicas + ' serviços extras distintos';
 }
 
 // ── GRÁFICO ────────────────────────────────────────────────────
@@ -317,16 +369,15 @@ function renderChart(){
 function renderHighlights(){
   const meses = sortMes(uniq(filtered.map(r=>r['MÊS'])).filter(Boolean));
   const grid  = document.getElementById('highlight-grid');
-
   if(!meses.length){ grid.innerHTML = ''; return; }
 
   grid.innerHTML = meses.map(mes => {
     const rows = filtered.filter(r=>(r['MÊS']||'').toLowerCase()===mes.toLowerCase());
     const counts = {};
     rows.forEach(r=>{ const m=r['MILITAR']||'?'; counts[m]=(counts[m]||0)+1; });
-    const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-    const [nome, qtd] = sorted[0] || ['—', 0];
-    // pega só o sobrenome/apelido (última palavra)
+    const top = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+    if(!top) return '';
+    const [nome, qtd] = top;
     const apelido = nome.split(' ').pop();
     return `
       <div class="highlight-card">
@@ -334,7 +385,7 @@ function renderHighlights(){
         <div class="highlight-info">
           <div class="name">${apelido}</div>
           <div class="count">${qtd} participação${qtd>1?'s':''}</div>
-          <div class="highlight-mes-label">${cap(mes)}</div>
+          <div class="mes">${cap(mes)}</div>
         </div>
       </div>`;
   }).join('');
@@ -342,14 +393,14 @@ function renderHighlights(){
 
 // ── TABELA ─────────────────────────────────────────────────────
 const COLS = [
-  {key:'DATA',label:'Data'},
-  {key:'Nº MILITAR',label:'Nº'},
-  {key:'MILITAR',label:'Militar'},
-  {key:'SERVIÇO',label:'Serviço'},
-  {key:'TIPO',label:'Tipo'},
-  {key:'PAGAMENTO',label:'Pagamento'},
-  {key:'OBS',label:'Obs'},
-  {key:'MÊS',label:'Mês'},
+  {key:'DATA',        label:'Data'},
+  {key:'Nº MILITAR',  label:'Nº'},
+  {key:'MILITAR',     label:'Militar'},
+  {key:'SERVIÇO',     label:'Serviço'},
+  {key:'TIPO',        label:'Tipo'},
+  {key:'PAGAMENTO',   label:'Pagamento'},
+  {key:'OBS',         label:'Obs'},
+  {key:'MÊS',         label:'Mês'},
 ];
 
 function sortData(){
@@ -370,18 +421,11 @@ function setSort(col){
   renderTable();
 }
 
-function tipoBadge(tipo){
-  if(!tipo) return '';
-  const t = tipo.toUpperCase();
-  if(t==='OPERAÇÃO') return `<span class="badge badge-operacao">${tipo}</span>`;
-  return `<span class="badge badge-extra">${tipo}</span>`;
-}
-
 function renderTable(){
-  const sorted = sortData();
+  const sorted     = sortData();
   const totalPages = Math.max(1, Math.ceil(sorted.length/PER_PAGE));
   if(currentPage > totalPages) currentPage = totalPages;
-  const pageData = sorted.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+  const pageData   = sorted.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
 
   document.getElementById('table-count').innerHTML =
     `Exibindo <strong>${sorted.length}</strong> de <strong>${allData.length}</strong> registros`;
@@ -402,14 +446,21 @@ function renderTable(){
     });
     html += `</tr></thead><tbody>`;
     pageData.forEach(row => {
-      const pag = row['PAGAMENTO']||'';
+      const pag  = row['PAGAMENTO']||'';
+      const tipo = (row['TIPO']||'').toUpperCase();
+      const tipoBadge = tipo==='OPERAÇÃO'
+        ? `<span class="badge badge-operacao">OPERAÇÃO</span>`
+        : `<span class="badge badge-extra">EXTRA</span>`;
+      const pagBadge = pag==='Extra'
+        ? `<span class="badge badge-extra">${pag}</span>`
+        : `<span class="badge badge-diaria">${pag}</span>`;
       html += `<tr>
         <td class="muted">${formatData(row['DATA'])}</td>
         <td class="muted">${row['Nº MILITAR']||''}</td>
         <td><strong>${row['MILITAR']||''}</strong></td>
         <td>${row['SERVIÇO']||''}</td>
-        <td>${tipoBadge(row['TIPO'])}</td>
-        <td><span class="badge ${pag==='Extra'?'badge-extra':'badge-diaria'}">${pag}</span></td>
+        <td>${tipoBadge}</td>
+        <td>${pagBadge}</td>
         <td class="muted">${row['OBS']||'—'}</td>
         <td class="muted" style="font-style:italic">${row['MÊS']||''}</td>
       </tr>`;
@@ -439,24 +490,7 @@ function renderTable(){
 
 function goPage(p){ currentPage=p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
 
-// ── CARREGAR ───────────────────────────────────────────────────
-const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=437673601&single=true&output=csv';
-
-Papa.parse(SHEETS_URL, {
-  download: true, header: true, skipEmptyLines: true,
-  complete(result){
-    if(result.data && result.data.length){
-      allData = result.data;
-      setStatus('ok', allData.length + ' registros carregados');
-      resetFilters();
-      buildFilters();
-      applyFilters();
-    } else {
-      setStatus('error', 'Nenhum dado encontrado na planilha.');
-    }
-  },
-  error(){ setStatus('error', 'Erro ao carregar. Tente recarregar a página.'); }
-});
+loadAll();
 </script>
 </body>
 </html>
