@@ -196,9 +196,18 @@ function loadSheets(){
   const raw = document.getElementById('sheets-url').value.trim();
   if(!raw) return;
   setStatus('loading', 'Carregando dados do Google Sheets...');
-  Papa.parse(buildCsvUrl(raw), {
+  const csvUrl = buildCsvUrl(raw);
+  console.log('🔗 URL original:', raw);
+  console.log('🔗 URL CSV gerada:', csvUrl);
+
+  Papa.parse(csvUrl, {
     download: true, header: true, skipEmptyLines: true,
     complete(result){
+      console.log('✅ PapaParse complete');
+      console.log('📊 Linhas recebidas:', result.data.length);
+      console.log('📋 Colunas:', result.meta.fields);
+      console.log('⚠️ Erros do parse:', result.errors);
+      console.log('🔍 Primeiras 2 linhas:', result.data.slice(0,2));
       if(result.data && result.data.length){
         allData = result.data;
         setStatus('ok', allData.length + ' registros carregados do Google Sheets');
@@ -206,10 +215,15 @@ function loadSheets(){
         buildFilters();
         applyFilters();
       } else {
+        console.warn('❌ Dados vazios após parse');
         setStatus('error', 'Nenhum dado encontrado. Verifique se a aba se chama REGISTRO e está publicada.');
       }
     },
-    error(){ setStatus('error', 'Erro ao carregar. Confirme se a planilha está publicada publicamente.'); }
+    error(err){
+      console.error('❌ Erro PapaParse:', err);
+      console.error('❌ Mensagem:', err.message || err);
+      setStatus('error', 'Erro ao carregar: ' + (err.message || JSON.stringify(err)));
+    }
   });
 }
 
