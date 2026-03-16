@@ -30,15 +30,22 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .dot.error{background:var(--red);box-shadow:0 0 6px var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-
-.btn-primary{background:var(--accent);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:.5px;cursor:pointer;white-space:nowrap;transition:background .2s}
-.btn-primary:hover{background:var(--accent2)}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent2)}
 
 .section-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:1px;display:flex;align-items:center;gap:8px}
 .section-title::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px;flex-shrink:0}
 
+/* DASHBOARD */
+.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.dash-card .label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.dash-card .value{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.dash-card .sub{font-size:12px;color:var(--muted);margin-top:5px}
+.dash-card.highlight .value{color:var(--accent2)}
+.dash-card.highlight{border-color:rgba(224,92,0,.3)}
+
+/* GRÁFICO */
 .chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
 .chart-bars{display:flex;align-items:flex-end;gap:12px;height:160px;margin-top:16px;padding:0 4px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
@@ -46,13 +53,24 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .bar{width:100%;background:var(--accent);border-radius:4px 4px 0 0;transition:height .4s ease;min-height:4px}
 .bar-label{font-size:12px;color:var(--muted);white-space:nowrap}
 
+/* DESTAQUE DO MÊS */
+.highlight-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px}
+.highlight-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.highlight-rank{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--accent);min-width:28px}
+.highlight-info .name{font-size:13px;font-weight:500;color:var(--text)}
+.highlight-info .count{font-size:12px;color:var(--muted);margin-top:2px}
+.highlight-mes-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+
+/* FILTROS */
 .filters-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px}
 .filters-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-.filters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-items:end}
+.filters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;align-items:end}
 .filter-group label{display:block;font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
 .filter-group select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:7px 30px 7px 10px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
 .filter-group select:focus{outline:none;border-color:var(--accent)}
 
+/* TABELA */
 .table-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .table-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
 .table-count{font-size:13px;color:var(--muted)}
@@ -72,6 +90,7 @@ td.muted{color:var(--muted)}
 .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .badge-extra{background:rgba(224,92,0,.15);color:var(--accent2);border:1px solid rgba(224,92,0,.3)}
 .badge-diaria{background:rgba(88,166,255,.12);color:var(--blue);border:1px solid rgba(88,166,255,.3)}
+.badge-operacao{background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.3)}
 
 .state-box{padding:50px 20px;text-align:center;color:var(--muted)}
 .state-box .icon{font-size:34px;margin-bottom:10px}
@@ -90,6 +109,7 @@ td.muted{color:var(--muted)}
   .header-badge{display:none}
   main{padding:14px}
   .filters-grid{grid-template-columns:1fr 1fr}
+  .dashboard{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -103,15 +123,47 @@ td.muted{color:var(--muted)}
 
 <main>
   <div class="status-bar">
-    <div class="dot" id="dot"></div>
-    <span id="status-text">Aguardando conexão com a planilha</span>
+    <div class="dot loading" id="dot"></div>
+    <span id="status-text">Carregando dados...</span>
   </div>
 
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="dash-card">
+      <div class="label">Total de Registros</div>
+      <div class="value" id="d-total">—</div>
+      <div class="sub">no período filtrado</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">Operações</div>
+      <div class="value" id="d-operacoes">—</div>
+      <div class="sub">tipo OPERAÇÃO</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">Extras</div>
+      <div class="value" id="d-extras">—</div>
+      <div class="sub">tipo EXTRA</div>
+    </div>
+    <div class="dash-card highlight">
+      <div class="label">Militares Envolvidos</div>
+      <div class="value" id="d-militares">—</div>
+      <div class="sub">distintos</div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO -->
   <div class="chart-box">
     <div class="section-title">Participações por Mês</div>
     <div class="chart-bars" id="chart-bars"></div>
   </div>
 
+  <!-- DESTAQUE POR MÊS -->
+  <div class="highlight-box" id="highlight-box">
+    <div class="section-title">Militar com Mais Participações por Mês</div>
+    <div class="highlight-grid" id="highlight-grid"></div>
+  </div>
+
+  <!-- FILTROS -->
   <div class="filters-box">
     <div class="filters-label">⚙ Filtros</div>
     <div class="filters-grid">
@@ -122,6 +174,10 @@ td.muted{color:var(--muted)}
       <div class="filter-group">
         <label>Mês</label>
         <select id="f-mes" onchange="applyFilters()"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Tipo</label>
+        <select id="f-tipo" onchange="applyFilters()"><option value="">Todos</option></select>
       </div>
       <div class="filter-group">
         <label>Operação / Serviço</label>
@@ -135,6 +191,7 @@ td.muted{color:var(--muted)}
     </div>
   </div>
 
+  <!-- TABELA -->
   <div class="table-box">
     <div class="table-head">
       <div class="section-title">Registros de Operações</div>
@@ -149,7 +206,6 @@ td.muted{color:var(--muted)}
 const PER_PAGE = 20;
 const MES_ORDER = {janeiro:1,fevereiro:2,março:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
 
-
 let allData = [];
 let filtered = [];
 let currentPage = 1;
@@ -161,7 +217,7 @@ function formatData(s){
   if(!s) return '';
   const d = new Date(s);
   if(isNaN(d)) return s;
-  return d.toLocaleDateString('pt-BR'); // dd/mm/aaaa
+  return d.toLocaleDateString('pt-BR');
 }
 function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
 function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
@@ -177,6 +233,7 @@ function setStatus(type, msg){
 function buildFilters(){
   fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
   fillSelect('f-mes', sortMes(uniq(allData.map(r=>r['MÊS']))), true);
+  fillSelect('f-tipo', uniq(allData.map(r=>r['TIPO'])).sort(), false);
   fillSelect('f-servico', uniq(allData.map(r=>r['SERVIÇO'])).sort(), false);
   fillSelect('f-pagamento', uniq(allData.map(r=>r['PAGAMENTO'])).sort(), false);
 }
@@ -195,52 +252,101 @@ function fillSelect(id, values, useCap){
 }
 
 function resetFilters(){
-  ['f-militar','f-mes','f-servico','f-pagamento'].forEach(id => document.getElementById(id).value = '');
+  ['f-militar','f-mes','f-tipo','f-servico','f-pagamento'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('clear-btn-wrap').innerHTML = '';
 }
 
 function applyFilters(){
   const mil = document.getElementById('f-militar').value;
   const mes = document.getElementById('f-mes').value;
+  const tipo = document.getElementById('f-tipo').value;
   const svc = document.getElementById('f-servico').value;
   const pag = document.getElementById('f-pagamento').value;
 
   filtered = allData.filter(r => {
-    if(mil && r['MILITAR'] !== mil) return false;
-    if(mes && (r['MÊS']||'').toLowerCase() !== mes.toLowerCase()) return false;
-    if(svc && r['SERVIÇO'] !== svc) return false;
-    if(pag && r['PAGAMENTO'] !== pag) return false;
+    if(mil  && r['MILITAR'] !== mil) return false;
+    if(mes  && (r['MÊS']||'').toLowerCase() !== mes.toLowerCase()) return false;
+    if(tipo && (r['TIPO']||'').toUpperCase() !== tipo.toUpperCase()) return false;
+    if(svc  && r['SERVIÇO'] !== svc) return false;
+    if(pag  && r['PAGAMENTO'] !== pag) return false;
     return true;
   });
 
   const wrap = document.getElementById('clear-btn-wrap');
-  wrap.innerHTML = (mil||mes||svc||pag)
+  wrap.innerHTML = (mil||mes||tipo||svc||pag)
     ? '<button class="btn-ghost" onclick="resetFilters();buildFilters();applyFilters()">✕ Limpar filtros</button>'
     : '';
 
   currentPage = 1;
+  renderDashboard();
   renderChart();
+  renderHighlights();
   renderTable();
 }
 
+// ── DASHBOARD ──────────────────────────────────────────────────
+function renderDashboard(){
+  const total     = filtered.length;
+  const operacoes = filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='OPERAÇÃO').length;
+  const extras    = filtered.filter(r=>(r['TIPO']||'').toUpperCase()==='EXTRA').length;
+  const militares = uniq(filtered.map(r=>r['MILITAR'])).length;
+
+  document.getElementById('d-total').textContent     = total;
+  document.getElementById('d-operacoes').textContent = operacoes;
+  document.getElementById('d-extras').textContent    = extras;
+  document.getElementById('d-militares').textContent = militares;
+}
+
+// ── GRÁFICO ────────────────────────────────────────────────────
 function renderChart(){
   const counts = {};
   filtered.forEach(r => { const m = r['MÊS']||'Sem mês'; counts[m]=(counts[m]||0)+1; });
   const months = sortMes(Object.keys(counts));
   const max = Math.max(...Object.values(counts), 1);
-  document.getElementById('chart-bars').innerHTML = months.map(mes => `
-    <div class="bar-col">
-      <span class="bar-val">${counts[mes]}</span>
-      <div class="bar" style="height:${Math.max(4,(counts[mes]/max)*130)}px"></div>
-      <span class="bar-label">${cap(mes)}</span>
-    </div>`).join('');
+  document.getElementById('chart-bars').innerHTML = months.length
+    ? months.map(mes => `
+        <div class="bar-col">
+          <span class="bar-val">${counts[mes]}</span>
+          <div class="bar" style="height:${Math.max(4,(counts[mes]/max)*130)}px"></div>
+          <span class="bar-label">${cap(mes)}</span>
+        </div>`).join('')
+    : '';
 }
 
+// ── DESTAQUE POR MÊS ───────────────────────────────────────────
+function renderHighlights(){
+  const meses = sortMes(uniq(filtered.map(r=>r['MÊS'])).filter(Boolean));
+  const grid  = document.getElementById('highlight-grid');
+
+  if(!meses.length){ grid.innerHTML = ''; return; }
+
+  grid.innerHTML = meses.map(mes => {
+    const rows = filtered.filter(r=>(r['MÊS']||'').toLowerCase()===mes.toLowerCase());
+    const counts = {};
+    rows.forEach(r=>{ const m=r['MILITAR']||'?'; counts[m]=(counts[m]||0)+1; });
+    const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const [nome, qtd] = sorted[0] || ['—', 0];
+    // pega só o sobrenome/apelido (última palavra)
+    const apelido = nome.split(' ').pop();
+    return `
+      <div class="highlight-card">
+        <div class="highlight-rank">🏆</div>
+        <div class="highlight-info">
+          <div class="name">${apelido}</div>
+          <div class="count">${qtd} participação${qtd>1?'s':''}</div>
+          <div class="highlight-mes-label">${cap(mes)}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── TABELA ─────────────────────────────────────────────────────
 const COLS = [
   {key:'DATA',label:'Data'},
   {key:'Nº MILITAR',label:'Nº'},
   {key:'MILITAR',label:'Militar'},
   {key:'SERVIÇO',label:'Serviço'},
+  {key:'TIPO',label:'Tipo'},
   {key:'PAGAMENTO',label:'Pagamento'},
   {key:'OBS',label:'Obs'},
   {key:'MÊS',label:'Mês'},
@@ -264,6 +370,13 @@ function setSort(col){
   renderTable();
 }
 
+function tipoBadge(tipo){
+  if(!tipo) return '';
+  const t = tipo.toUpperCase();
+  if(t==='OPERAÇÃO') return `<span class="badge badge-operacao">${tipo}</span>`;
+  return `<span class="badge badge-extra">${tipo}</span>`;
+}
+
 function renderTable(){
   const sorted = sortData();
   const totalPages = Math.max(1, Math.ceil(sorted.length/PER_PAGE));
@@ -278,11 +391,10 @@ function renderTable(){
     : `<span class="arrow">↕</span>`;
 
   let html = '';
-
   if(pageData.length === 0){
     html = allData.length === 0
-    ? `<div class="state-box"><div class="icon">📋</div><p>Conecte a planilha acima para visualizar os dados.</p></div>`
-    : `<div class="state-box"><div class="icon">🔍</div><p>Nenhum registro encontrado com os filtros selecionados.</p></div>`;
+      ? `<div class="state-box"><div class="icon">📋</div><p>Carregando dados da planilha...</p></div>`
+      : `<div class="state-box"><div class="icon">🔍</div><p>Nenhum registro encontrado com os filtros selecionados.</p></div>`;
   } else {
     html += `<div class="table-scroll"><table><thead><tr>`;
     COLS.forEach(c => {
@@ -296,6 +408,7 @@ function renderTable(){
         <td class="muted">${row['Nº MILITAR']||''}</td>
         <td><strong>${row['MILITAR']||''}</strong></td>
         <td>${row['SERVIÇO']||''}</td>
+        <td>${tipoBadge(row['TIPO'])}</td>
         <td><span class="badge ${pag==='Extra'?'badge-extra':'badge-diaria'}">${pag}</span></td>
         <td class="muted">${row['OBS']||'—'}</td>
         <td class="muted" style="font-style:italic">${row['MÊS']||''}</td>
@@ -308,14 +421,14 @@ function renderTable(){
   let pg = '';
   if(totalPages > 1){
     pg += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
-    let lastWasDots = false;
+    let dots = false;
     for(let i=1;i<=totalPages;i++){
       if(i===1||i===totalPages||Math.abs(i-currentPage)<=2){
         pg += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
-        lastWasDots = false;
-      } else if(!lastWasDots){
+        dots = false;
+      } else if(!dots){
         pg += `<span class="page-info">…</span>`;
-        lastWasDots = true;
+        dots = true;
       }
     }
     pg += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
@@ -326,34 +439,24 @@ function renderTable(){
 
 function goPage(p){ currentPage=p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
 
+// ── CARREGAR ───────────────────────────────────────────────────
 const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=437673601&single=true&output=csv';
 
-function autoLoad(){
-  setStatus('loading', 'Carregando dados...');
-  const csvUrl = SHEETS_URL;
-  console.log('🔗 Carregando:', csvUrl);
-  Papa.parse(csvUrl, {
-    download: true, header: true, skipEmptyLines: true,
-    complete(result){
-      console.log('✅ Linhas:', result.data.length);
-      if(result.data && result.data.length){
-        allData = result.data;
-        setStatus('ok', allData.length + ' registros carregados');
-        resetFilters();
-        buildFilters();
-        applyFilters();
-      } else {
-        setStatus('error', 'Nenhum dado encontrado na planilha.');
-      }
-    },
-    error(err){
-      console.error('❌', err);
-      setStatus('error', 'Erro ao carregar a planilha. Tente recarregar a página.');
+Papa.parse(SHEETS_URL, {
+  download: true, header: true, skipEmptyLines: true,
+  complete(result){
+    if(result.data && result.data.length){
+      allData = result.data;
+      setStatus('ok', allData.length + ' registros carregados');
+      resetFilters();
+      buildFilters();
+      applyFilters();
+    } else {
+      setStatus('error', 'Nenhum dado encontrado na planilha.');
     }
-  });
-}
-
-autoLoad();
+  },
+  error(){ setStatus('error', 'Erro ao carregar. Tente recarregar a página.'); }
+});
 </script>
 </body>
 </html>
