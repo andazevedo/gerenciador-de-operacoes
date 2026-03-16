@@ -1,5 +1,4 @@
-const { useState, useMemo } = React;
-
+const { useState, useMemo, useEffect } = React;
 // ─── CONSTANTES ───────────────────────────────────────────────────────────────
 
 const PER_PAGE = 20;
@@ -177,7 +176,7 @@ function SortArrow({ col, sort }) {
 
 function DataTable({ rows, total, sort, onSort, loading }) {
   const [page, setPage] = useState(1);
-  useMemo(() => setPage(1), [rows.length]);
+  useEffect(() => { setPage(1); }, [rows.length]);
   const totalPages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
   const pageData   = rows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
