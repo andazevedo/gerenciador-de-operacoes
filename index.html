@@ -274,7 +274,11 @@ function buildFilters(){
   fillSelect('f-militar', nomesMil, false);
 
   // Ano: extraído da coluna DATA
-  const anos = uniq(allData.map(r=>(r['DATA']||'').slice(0,4))).filter(a=>a.length===4).sort().reverse();
+  const anos = uniq(allData.map(r=>{
+    const raw = r['DATA']||'';
+    const d = new Date(raw);
+    return isNaN(d) ? raw.slice(0,4) : String(d.getFullYear());
+  })).filter(a=>a.length===4).sort().reverse();
   fillSelect('f-ano', anos, false);
 
   // Mês: vem dos registros (só meses que existem)
@@ -319,7 +323,7 @@ function applyFilters(){
 
   filtered = allData.filter(r => {
     if(mil  && r['MILITAR'] !== mil) return false;
-    if(ano  && (r['DATA']||'').slice(0,4) !== ano) return false;
+    if(ano){ const d=new Date(r['DATA']||''); if(isNaN(d)||String(d.getFullYear())!==ano) return false; }
     if(mes  && (r['MÊS']||'').toLowerCase() !== mes.toLowerCase()) return false;
     if(tipo && (r['TIPO']||'').toUpperCase() !== tipo.toUpperCase()) return false;
     if(svc  && r['SERVIÇO'] !== svc) return false;
