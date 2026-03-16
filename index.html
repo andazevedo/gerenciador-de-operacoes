@@ -30,14 +30,6 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .dot.error{background:var(--red);box-shadow:0 0 6px var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.config-box{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:16px 20px;margin-bottom:20px}
-.config-box h3{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--accent2);margin-bottom:8px;letter-spacing:.5px}
-.config-box p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
-.config-box p strong{color:var(--text)}
-.input-row{display:flex;gap:8px}
-.input-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px}
-.input-row input:focus{outline:none;border-color:var(--accent)}
-.url-hint{font-size:11px;color:var(--muted);margin-top:7px;font-family:monospace}
 
 .btn-primary{background:var(--accent);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:.5px;cursor:pointer;white-space:nowrap;transition:background .2s}
 .btn-primary:hover{background:var(--accent2)}
@@ -115,18 +107,6 @@ td.muted{color:var(--muted)}
     <span id="status-text">Aguardando conexão com a planilha</span>
   </div>
 
-  <div class="config-box">
-    <h3>🔗 CONECTAR GOOGLE SHEETS</h3>
-    <p>Cole o link da sua planilha no Google Drive.<br>
-    A aba <strong>REGISTRO</strong> precisa estar <strong>publicada na web</strong>:
-    <em> Arquivo → Compartilhar → Publicar na web → Aba REGISTRO → CSV → Publicar</em></p>
-    <div class="input-row">
-      <input type="text" id="sheets-url" placeholder="https://docs.google.com/spreadsheets/d/SEU_ID_AQUI/..."/>
-      <button class="btn-primary" onclick="loadSheets()">Carregar</button>
-    </div>
-    <div class="url-hint">💡 Cole o link normal — o sistema converte automaticamente para CSV</div>
-  </div>
-
   <div class="chart-box">
     <div class="section-title">Participações por Mês</div>
     <div class="chart-bars" id="chart-bars"></div>
@@ -185,13 +165,6 @@ function formatData(s){
 }
 function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
 function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
-function buildCsvUrl(raw){
-  // Se já é URL de publicação (tem output=csv ou /pub?), usa direto
-  if(raw.includes('output=csv') || raw.includes('/pub?')) return raw;
-  // Se é URL de edição (/d/ID), converte para CSV via gviz
-  const m = raw.match(/\/d\/([a-zA-Z0-9-_]+)/);
-  return m ? `https://docs.google.com/spreadsheets/d/${m[1]}/gviz/tq?tqx=out:csv&sheet=REGISTRO` : raw;
-}
 
 function setStatus(type, msg){
   const dot = document.getElementById('dot');
@@ -199,41 +172,6 @@ function setStatus(type, msg){
   dot.className = 'dot' + (type !== 'ok' ? ' '+type : '');
   txt.textContent = msg;
   txt.style.color = type === 'error' ? 'var(--red)' : '';
-}
-
-function loadSheets(){
-  const raw = document.getElementById('sheets-url').value.trim();
-  if(!raw) return;
-  setStatus('loading', 'Carregando dados do Google Sheets...');
-  const csvUrl = buildCsvUrl(raw);
-  console.log('🔗 URL original:', raw);
-  console.log('🔗 URL CSV gerada:', csvUrl);
-
-  Papa.parse(csvUrl, {
-    download: true, header: true, skipEmptyLines: true,
-    complete(result){
-      console.log('✅ PapaParse complete');
-      console.log('📊 Linhas recebidas:', result.data.length);
-      console.log('📋 Colunas:', result.meta.fields);
-      console.log('⚠️ Erros do parse:', result.errors);
-      console.log('🔍 Primeiras 2 linhas:', result.data.slice(0,2));
-      if(result.data && result.data.length){
-        allData = result.data;
-        setStatus('ok', allData.length + ' registros carregados do Google Sheets');
-        resetFilters();
-        buildFilters();
-        applyFilters();
-      } else {
-        console.warn('❌ Dados vazios após parse');
-        setStatus('error', 'Nenhum dado encontrado. Verifique se a aba se chama REGISTRO e está publicada.');
-      }
-    },
-    error(err){
-      console.error('❌ Erro PapaParse:', err);
-      console.error('❌ Mensagem:', err.message || err);
-      setStatus('error', 'Erro ao carregar: ' + (err.message || JSON.stringify(err)));
-    }
-  });
 }
 
 function buildFilters(){
@@ -388,9 +326,34 @@ function renderTable(){
 
 function goPage(p){ currentPage=p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
 
-document.getElementById('sheets-url').addEventListener('keydown', e => { if(e.key==='Enter') loadSheets(); });
-buildFilters();
-applyFilters();
+const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=437673601&single=true&output=csv';
+
+function autoLoad(){
+  setStatus('loading', 'Carregando dados...');
+  const csvUrl = SHEETS_URL;
+  console.log('🔗 Carregando:', csvUrl);
+  Papa.parse(csvUrl, {
+    download: true, header: true, skipEmptyLines: true,
+    complete(result){
+      console.log('✅ Linhas:', result.data.length);
+      if(result.data && result.data.length){
+        allData = result.data;
+        setStatus('ok', allData.length + ' registros carregados');
+        resetFilters();
+        buildFilters();
+        applyFilters();
+      } else {
+        setStatus('error', 'Nenhum dado encontrado na planilha.');
+      }
+    },
+    error(err){
+      console.error('❌', err);
+      setStatus('error', 'Erro ao carregar a planilha. Tente recarregar a página.');
+    }
+  });
+}
+
+autoLoad();
 </script>
 </body>
 </html>
