@@ -15,21 +15,21 @@
   --text:#e6edf3;--muted:#8b949e;--green:#3fb950;--blue:#58a6ff;--red:#f85149;
 }
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
- 
+
 header{background:var(--surface);border-bottom:2px solid var(--accent);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
 .header-icon{width:38px;height:38px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 header h1{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:1px}
 header h1 span{font-size:13px;color:var(--muted);margin-left:4px;font-weight:400}
 .header-badge{margin-left:auto;font-size:11px;background:rgba(224,92,0,.15);border:1px solid var(--accent);color:var(--accent2);padding:3px 11px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px}
- 
+
 main{padding:24px 28px;max-width:1400px;margin:0 auto}
- 
+
 .status-bar{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px;color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;flex-shrink:0}
 .dot.loading{background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
 .dot.error{background:var(--red);box-shadow:0 0 6px var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
- 
+
 .config-box{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:16px 20px;margin-bottom:20px}
 .config-box h3{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--accent2);margin-bottom:8px;letter-spacing:.5px}
 .config-box p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
@@ -38,29 +38,29 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .input-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px}
 .input-row input:focus{outline:none;border-color:var(--accent)}
 .url-hint{font-size:11px;color:var(--muted);margin-top:7px;font-family:monospace}
- 
+
 .btn-primary{background:var(--accent);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:.5px;cursor:pointer;white-space:nowrap;transition:background .2s}
 .btn-primary:hover{background:var(--accent2)}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent2)}
- 
+
 .section-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:1px;display:flex;align-items:center;gap:8px}
 .section-title::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px;flex-shrink:0}
- 
+
 .chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
 .chart-bars{display:flex;align-items:flex-end;gap:12px;height:160px;margin-top:16px;padding:0 4px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
 .bar-val{font-size:13px;font-weight:600;color:var(--text)}
 .bar{width:100%;background:var(--accent);border-radius:4px 4px 0 0;transition:height .4s ease;min-height:4px}
 .bar-label{font-size:12px;color:var(--muted);white-space:nowrap}
- 
+
 .filters-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px}
 .filters-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
 .filters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-items:end}
 .filter-group label{display:block;font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
 .filter-group select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:7px 30px 7px 10px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
 .filter-group select:focus{outline:none;border-color:var(--accent)}
- 
+
 .table-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .table-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
 .table-count{font-size:13px;color:var(--muted)}
@@ -80,18 +80,18 @@ td.muted{color:var(--muted)}
 .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .badge-extra{background:rgba(224,92,0,.15);color:var(--accent2);border:1px solid rgba(224,92,0,.3)}
 .badge-diaria{background:rgba(88,166,255,.12);color:var(--blue);border:1px solid rgba(88,166,255,.3)}
- 
+
 .state-box{padding:50px 20px;text-align:center;color:var(--muted)}
 .state-box .icon{font-size:34px;margin-bottom:10px}
 .state-box p{font-size:14px}
- 
+
 .pagination{display:flex;align-items:center;justify-content:center;gap:5px;padding:14px;border-top:1px solid var(--border);flex-wrap:wrap}
 .page-btn{background:transparent;border:1px solid var(--border);color:var(--muted);min-width:30px;height:30px;padding:0 5px;border-radius:5px;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;justify-content:center;transition:all .15s;font-family:'DM Sans',sans-serif}
 .page-btn:hover:not([disabled]){border-color:var(--accent);color:var(--accent2)}
 .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .page-btn[disabled]{opacity:.3;cursor:not-allowed}
 .page-info{font-size:13px;color:var(--muted);padding:0 5px}
- 
+
 @media(max-width:640px){
   header{padding:10px 14px}
   header h1{font-size:16px}
@@ -102,19 +102,19 @@ td.muted{color:var(--muted)}
 </style>
 </head>
 <body>
- 
+
 <header>
   <div class="header-icon">🔥</div>
   <h1>CONTROLE DE OP. EXTRAS <span>/ 2026</span></h1>
   <div class="header-badge">CBMPA · CAMETÁ</div>
 </header>
- 
+
 <main>
   <div class="status-bar">
     <div class="dot" id="dot"></div>
-    <span id="status-text">Modo demonstração — conecte sua planilha abaixo</span>
+    <span id="status-text">Aguardando conexão com a planilha</span>
   </div>
- 
+
   <div class="config-box">
     <h3>🔗 CONECTAR GOOGLE SHEETS</h3>
     <p>Cole o link da sua planilha no Google Drive.<br>
@@ -126,12 +126,12 @@ td.muted{color:var(--muted)}
     </div>
     <div class="url-hint">💡 Cole o link normal — o sistema converte automaticamente para CSV</div>
   </div>
- 
+
   <div class="chart-box">
     <div class="section-title">Participações por Mês</div>
     <div class="chart-bars" id="chart-bars"></div>
   </div>
- 
+
   <div class="filters-box">
     <div class="filters-label">⚙ Filtros</div>
     <div class="filters-grid">
@@ -154,7 +154,7 @@ td.muted{color:var(--muted)}
       <div id="clear-btn-wrap"></div>
     </div>
   </div>
- 
+
   <div class="table-box">
     <div class="table-head">
       <div class="section-title">Registros de Operações</div>
@@ -164,42 +164,18 @@ td.muted{color:var(--muted)}
     <div class="pagination" id="pagination"></div>
   </div>
 </main>
- 
+
 <script>
 const PER_PAGE = 20;
 const MES_ORDER = {janeiro:1,fevereiro:2,março:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
- 
-const DEMO_DATA = [
-  {DATA:"2026-01-04","Nº MILITAR":"20",MILITAR:"2º SGT QBM_COMB WANZELER",SERVIÇO:"DOMINGUEIRAS",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-04","Nº MILITAR":"29",MILITAR:"2º SGT QBM_COMB GELMAX",SERVIÇO:"DOMINGUEIRAS",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-04","Nº MILITAR":"34",MILITAR:"3º SGT QBM_COMB REGIANE",SERVIÇO:"DOMINGUEIRAS",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"7",MILITAR:"1º SGT QBM_COMB NOVAIS",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"10",MILITAR:"1º SGT QBM_COMB FIRMINO",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"17",MILITAR:"2º SGT QBM_COMB LISBOA",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"18",MILITAR:"2º SGT QBM_COMB PIRES",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"21",MILITAR:"2º SGT QBM_COMB RENATO",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"",MÊS:"janeiro"},
-  {DATA:"2026-01-10","Nº MILITAR":"37",MILITAR:"CB QBM_COMB SERRÃO",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"AVENIDA",MÊS:"janeiro"},
-  {DATA:"2026-01-11","Nº MILITAR":"8",MILITAR:"1º SGT QBM_COV PAIVA",SERVIÇO:"PREVENÇÃO BALNEÁREA",PAGAMENTO:"Extra",OBS:"ALDEIA",MÊS:"janeiro"},
-  {DATA:"2026-02-01","Nº MILITAR":"20",MILITAR:"2º SGT QBM_COMB WANZELER",SERVIÇO:"OP CARNAVAL",PAGAMENTO:"Extra",OBS:"AVENIDA",MÊS:"fevereiro"},
-  {DATA:"2026-02-01","Nº MILITAR":"29",MILITAR:"2º SGT QBM_COMB GELMAX",SERVIÇO:"OP CARNAVAL",PAGAMENTO:"Extra",OBS:"AVENIDA",MÊS:"fevereiro"},
-  {DATA:"2026-02-01","Nº MILITAR":"34",MILITAR:"3º SGT QBM_COMB REGIANE",SERVIÇO:"OP CARNAVAL",PAGAMENTO:"Extra",OBS:"TAPERA",MÊS:"fevereiro"},
-  {DATA:"2026-02-01","Nº MILITAR":"37",MILITAR:"CB QBM_COMB SERRÃO",SERVIÇO:"OP CARNAVAL",PAGAMENTO:"Extra",OBS:"TAPERA",MÊS:"fevereiro"},
-  {DATA:"2026-02-02","Nº MILITAR":"8",MILITAR:"1º SGT QBM_COV PAIVA",SERVIÇO:"OP CARNAVAL",PAGAMENTO:"Extra",OBS:"ALDEIA",MÊS:"fevereiro"},
-  {DATA:"2026-02-15","Nº MILITAR":"7",MILITAR:"1º SGT QBM_COMB NOVAIS",SERVIÇO:"JOGOS CAMETÁ",PAGAMENTO:"Extra",OBS:"CAMETÁ X REMO",MÊS:"fevereiro"},
-  {DATA:"2026-02-15","Nº MILITAR":"10",MILITAR:"1º SGT QBM_COMB FIRMINO",SERVIÇO:"JOGOS CAMETÁ",PAGAMENTO:"Extra",OBS:"CAMETÁ X REMO",MÊS:"fevereiro"},
-  {DATA:"2026-02-15","Nº MILITAR":"17",MILITAR:"2º SGT QBM_COMB LISBOA",SERVIÇO:"JOGOS CAMETÁ",PAGAMENTO:"Diária",OBS:"CAMETÁ X PAYSANDU",MÊS:"fevereiro"},
-  {DATA:"2026-03-05","Nº MILITAR":"21",MILITAR:"2º SGT QBM_COMB RENATO",SERVIÇO:"ABERTURA DA PESCA",PAGAMENTO:"Extra",OBS:"",MÊS:"março"},
-  {DATA:"2026-03-05","Nº MILITAR":"37",MILITAR:"CB QBM_COMB SERRÃO",SERVIÇO:"ABERTURA DA PESCA",PAGAMENTO:"Extra",OBS:"",MÊS:"março"},
-  {DATA:"2026-03-10","Nº MILITAR":"8",MILITAR:"1º SGT QBM_COV PAIVA",SERVIÇO:"CONTEÇÃO DE PSIQUIÁTRICO",PAGAMENTO:"Extra",OBS:"",MÊS:"março"},
-  {DATA:"2026-03-10","Nº MILITAR":"20",MILITAR:"2º SGT QBM_COMB WANZELER",SERVIÇO:"CONTEÇÃO DE PSIQUIÁTRICO",PAGAMENTO:"Extra",OBS:"",MÊS:"março"},
-];
- 
-let allData = DEMO_DATA;
-let filtered = [...DEMO_DATA];
+
+
+let allData = [];
+let filtered = [];
 let currentPage = 1;
 let sortCol = 'DATA';
 let sortDir = 'asc';
- 
+
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
 function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
@@ -207,7 +183,7 @@ function buildCsvUrl(raw){
   const m = raw.match(/\/d\/([a-zA-Z0-9-_]+)/);
   return m ? `https://docs.google.com/spreadsheets/d/${m[1]}/gviz/tq?tqx=out:csv&sheet=REGISTRO` : raw;
 }
- 
+
 function setStatus(type, msg){
   const dot = document.getElementById('dot');
   const txt = document.getElementById('status-text');
@@ -215,7 +191,7 @@ function setStatus(type, msg){
   txt.textContent = msg;
   txt.style.color = type === 'error' ? 'var(--red)' : '';
 }
- 
+
 function loadSheets(){
   const raw = document.getElementById('sheets-url').value.trim();
   if(!raw) return;
@@ -236,14 +212,14 @@ function loadSheets(){
     error(){ setStatus('error', 'Erro ao carregar. Confirme se a planilha está publicada publicamente.'); }
   });
 }
- 
+
 function buildFilters(){
   fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
   fillSelect('f-mes', sortMes(uniq(allData.map(r=>r['MÊS']))), true);
   fillSelect('f-servico', uniq(allData.map(r=>r['SERVIÇO'])).sort(), false);
   fillSelect('f-pagamento', uniq(allData.map(r=>r['PAGAMENTO'])).sort(), false);
 }
- 
+
 function fillSelect(id, values, useCap){
   const sel = document.getElementById(id);
   const cur = sel.value;
@@ -256,18 +232,18 @@ function fillSelect(id, values, useCap){
   });
   if(cur) sel.value = cur;
 }
- 
+
 function resetFilters(){
   ['f-militar','f-mes','f-servico','f-pagamento'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('clear-btn-wrap').innerHTML = '';
 }
- 
+
 function applyFilters(){
   const mil = document.getElementById('f-militar').value;
   const mes = document.getElementById('f-mes').value;
   const svc = document.getElementById('f-servico').value;
   const pag = document.getElementById('f-pagamento').value;
- 
+
   filtered = allData.filter(r => {
     if(mil && r['MILITAR'] !== mil) return false;
     if(mes && (r['MÊS']||'').toLowerCase() !== mes.toLowerCase()) return false;
@@ -275,17 +251,17 @@ function applyFilters(){
     if(pag && r['PAGAMENTO'] !== pag) return false;
     return true;
   });
- 
+
   const wrap = document.getElementById('clear-btn-wrap');
   wrap.innerHTML = (mil||mes||svc||pag)
     ? '<button class="btn-ghost" onclick="resetFilters();buildFilters();applyFilters()">✕ Limpar filtros</button>'
     : '';
- 
+
   currentPage = 1;
   renderChart();
   renderTable();
 }
- 
+
 function renderChart(){
   const counts = {};
   filtered.forEach(r => { const m = r['MÊS']||'Sem mês'; counts[m]=(counts[m]||0)+1; });
@@ -298,7 +274,7 @@ function renderChart(){
       <span class="bar-label">${cap(mes)}</span>
     </div>`).join('');
 }
- 
+
 const COLS = [
   {key:'DATA',label:'Data'},
   {key:'Nº MILITAR',label:'Nº'},
@@ -308,7 +284,7 @@ const COLS = [
   {key:'OBS',label:'Obs'},
   {key:'MÊS',label:'Mês'},
 ];
- 
+
 function sortData(){
   return [...filtered].sort((a,b)=>{
     let va=a[sortCol]||'', vb=b[sortCol]||'';
@@ -320,30 +296,32 @@ function sortData(){
     return 0;
   });
 }
- 
+
 function setSort(col){
   sortDir = sortCol===col ? (sortDir==='asc'?'desc':'asc') : 'asc';
   sortCol = col;
   renderTable();
 }
- 
+
 function renderTable(){
   const sorted = sortData();
   const totalPages = Math.max(1, Math.ceil(sorted.length/PER_PAGE));
   if(currentPage > totalPages) currentPage = totalPages;
   const pageData = sorted.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
- 
+
   document.getElementById('table-count').innerHTML =
     `Exibindo <strong>${sorted.length}</strong> de <strong>${allData.length}</strong> registros`;
- 
+
   const arrow = col => sortCol===col
     ? `<span class="arrow">${sortDir==='asc'?'↑':'↓'}</span>`
     : `<span class="arrow">↕</span>`;
- 
+
   let html = '';
- 
+
   if(pageData.length === 0){
-    html = `<div class="state-box"><div class="icon">🔍</div><p>Nenhum registro encontrado com os filtros selecionados.</p></div>`;
+    html = allData.length === 0
+    ? `<div class="state-box"><div class="icon">📋</div><p>Conecte a planilha acima para visualizar os dados.</p></div>`
+    : `<div class="state-box"><div class="icon">🔍</div><p>Nenhum registro encontrado com os filtros selecionados.</p></div>`;
   } else {
     html += `<div class="table-scroll"><table><thead><tr>`;
     COLS.forEach(c => {
@@ -365,7 +343,7 @@ function renderTable(){
     html += `</tbody></table></div>`;
   }
   document.getElementById('table-body').innerHTML = html;
- 
+
   let pg = '';
   if(totalPages > 1){
     pg += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
@@ -384,9 +362,9 @@ function renderTable(){
   }
   document.getElementById('pagination').innerHTML = pg;
 }
- 
+
 function goPage(p){ currentPage=p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
- 
+
 document.getElementById('sheets-url').addEventListener('keydown', e => { if(e.key==='Enter') loadSheets(); });
 buildFilters();
 applyFilters();
