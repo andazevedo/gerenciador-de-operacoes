@@ -176,6 +176,10 @@ td.muted{color:var(--muted)}
         <select id="f-militar" onchange="applyFilters()"><option value="">Todos</option></select>
       </div>
       <div class="filter-group">
+        <label>Ano</label>
+        <select id="f-ano" onchange="applyFilters()"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
         <label>Mês</label>
         <select id="f-mes" onchange="applyFilters()"><option value="">Todos</option></select>
       </div>
@@ -265,10 +269,25 @@ function loadAll(){
 
 // ── FILTROS ────────────────────────────────────────────────────
 function buildFilters(){
-  fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
-  fillSelect('f-mes',     sortMes(uniq(allData.map(r=>r['MÊS']))), true);
-  fillSelect('f-tipo',    uniq(allData.map(r=>r['TIPO'])).sort(), false);
-  fillSelect('f-servico', uniq(allData.map(r=>r['SERVIÇO'])).sort(), false);
+  // Militar: vem da aba MILITARES (todos os cadastrados)
+  const nomesMil = allMilitares.map(r=>r['MILITAR']).filter(Boolean).sort();
+  fillSelect('f-militar', nomesMil, false);
+
+  // Ano: extraído da coluna DATA
+  const anos = uniq(allData.map(r=>(r['DATA']||'').slice(0,4))).filter(a=>a.length===4).sort().reverse();
+  fillSelect('f-ano', anos, false);
+
+  // Mês: vem dos registros (só meses que existem)
+  fillSelect('f-mes', sortMes(uniq(allData.map(r=>r['MÊS']))), true);
+
+  // Tipo: vem da aba OPERAÇÕES
+  fillSelect('f-tipo', uniq(allOperacoes.map(r=>r['TIPO'])).sort(), false);
+
+  // Serviço: vem da aba OPERAÇÕES (inclui operações sem registro ainda)
+  const servicos = allOperacoes.map(r=>r['SERVIÇO']).filter(Boolean).sort();
+  fillSelect('f-servico', servicos, false);
+
+  // Pagamento: vem dos registros
   fillSelect('f-pagamento', uniq(allData.map(r=>r['PAGAMENTO'])).sort(), false);
 }
 
@@ -286,12 +305,13 @@ function fillSelect(id, values, useCap){
 }
 
 function resetFilters(){
-  ['f-militar','f-mes','f-tipo','f-servico','f-pagamento'].forEach(id => document.getElementById(id).value = '');
+  ['f-militar','f-ano','f-mes','f-tipo','f-servico','f-pagamento'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('clear-btn-wrap').innerHTML = '';
 }
 
 function applyFilters(){
   const mil  = document.getElementById('f-militar').value;
+  const ano  = document.getElementById('f-ano').value;
   const mes  = document.getElementById('f-mes').value;
   const tipo = document.getElementById('f-tipo').value;
   const svc  = document.getElementById('f-servico').value;
@@ -299,6 +319,7 @@ function applyFilters(){
 
   filtered = allData.filter(r => {
     if(mil  && r['MILITAR'] !== mil) return false;
+    if(ano  && (r['DATA']||'').slice(0,4) !== ano) return false;
     if(mes  && (r['MÊS']||'').toLowerCase() !== mes.toLowerCase()) return false;
     if(tipo && (r['TIPO']||'').toUpperCase() !== tipo.toUpperCase()) return false;
     if(svc  && r['SERVIÇO'] !== svc) return false;
@@ -307,7 +328,7 @@ function applyFilters(){
   });
 
   const wrap = document.getElementById('clear-btn-wrap');
-  wrap.innerHTML = (mil||mes||tipo||svc||pag)
+  wrap.innerHTML = (mil||ano||mes||tipo||svc||pag)
     ? '<button class="btn-ghost" onclick="resetFilters();buildFilters();applyFilters()">✕ Limpar filtros</button>'
     : '';
 
