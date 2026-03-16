@@ -180,6 +180,9 @@ function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
 function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
 function buildCsvUrl(raw){
+  // Se já é URL de publicação (tem output=csv ou /pub?), usa direto
+  if(raw.includes('output=csv') || raw.includes('/pub?')) return raw;
+  // Se é URL de edição (/d/ID), converte para CSV via gviz
   const m = raw.match(/\/d\/([a-zA-Z0-9-_]+)/);
   return m ? `https://docs.google.com/spreadsheets/d/${m[1]}/gviz/tq?tqx=out:csv&sheet=REGISTRO` : raw;
 }
