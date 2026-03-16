@@ -177,6 +177,12 @@ let sortCol = 'DATA';
 let sortDir = 'asc';
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
+function formatData(s){
+  if(!s) return '';
+  const d = new Date(s);
+  if(isNaN(d)) return s;
+  return d.toLocaleDateString('pt-BR'); // dd/mm/aaaa
+}
 function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
 function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
 function buildCsvUrl(raw){
@@ -348,7 +354,7 @@ function renderTable(){
     pageData.forEach(row => {
       const pag = row['PAGAMENTO']||'';
       html += `<tr>
-        <td class="muted">${(row['DATA']||'').slice(0,10)}</td>
+        <td class="muted">${formatData(row['DATA'])}</td>
         <td class="muted">${row['Nº MILITAR']||''}</td>
         <td><strong>${row['MILITAR']||''}</strong></td>
         <td>${row['SERVIÇO']||''}</td>
