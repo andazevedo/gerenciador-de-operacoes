@@ -239,6 +239,27 @@ td.muted{color:var(--muted)}
     </div>
   </div>
 
+  <!-- RANKING -->
+  <div class="ranking-box">
+    <div class="table-head" onclick="toggleRanking()" style="cursor:pointer">
+      <div class="section-title" style="margin-bottom:0">Participações por Militar</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;color:var(--muted)" id="ranking-hint">ordene clicando nas colunas</span>
+        <button id="ranking-toggle-btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-family:DM Sans,sans-serif;transition:all .2s">▲ Recolher</button>
+      </div>
+    </div>
+    <div id="ranking-content">
+      <div class="ranking-scroll">
+        <table id="ranking-table" style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr id="ranking-head" style="background:var(--surface2)"></tr>
+          </thead>
+          <tbody id="ranking-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- FILTROS -->
   <div class="filters-box">
     <div class="filters-label">⚙ Filtros</div>
