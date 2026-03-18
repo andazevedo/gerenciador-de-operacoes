@@ -128,9 +128,10 @@ td.muted{color:var(--muted)}
 .modal-filter label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
 .modal-filter select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 28px 5px 9px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
 .modal-filter select:focus{outline:none;border-color:var(--accent)}
-.modal-regs{overflow-x:auto}
+.modal-regs{overflow-x:auto;max-height:300px;overflow-y:auto;border:1px solid var(--border);border-radius:7px}
 .modal-regs table{width:100%;border-collapse:collapse;font-size:12px}
 .modal-regs thead tr{background:var(--surface2)}
+.modal-regs thead th{position:sticky;top:0;background:var(--surface2);z-index:1}
 .modal-regs th{padding:8px 12px;text-align:left;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .modal-regs tbody tr{border-bottom:1px solid var(--border)}
 .modal-regs tbody tr:last-child{border-bottom:none}
@@ -218,48 +219,6 @@ td.muted{color:var(--muted)}
     <div class="highlight-grid" id="highlight-grid"></div>
   </div>
 
-  <!-- RANKING -->
-  <div class="ranking-box">
-    <div class="table-head" onclick="toggleRanking()" style="cursor:pointer">
-      <div class="section-title" style="margin-bottom:0">Participações por Militar</div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:12px;color:var(--muted)" id="ranking-hint">ordene clicando nas colunas</span>
-        <button id="ranking-toggle-btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-family:DM Sans,sans-serif;transition:all .2s">▲ Recolher</button>
-      </div>
-    </div>
-    <div id="ranking-content">
-      <div class="ranking-scroll">
-        <table id="ranking-table" style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead>
-            <tr id="ranking-head" style="background:var(--surface2)"></tr>
-          </thead>
-          <tbody id="ranking-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- RANKING -->
-  <div class="ranking-box">
-    <div class="table-head" onclick="toggleRanking()" style="cursor:pointer">
-      <div class="section-title" style="margin-bottom:0">Participações por Militar</div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:12px;color:var(--muted)" id="ranking-hint">ordene clicando nas colunas</span>
-        <button id="ranking-toggle-btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-family:DM Sans,sans-serif;transition:all .2s">▲ Recolher</button>
-      </div>
-    </div>
-    <div id="ranking-content">
-      <div class="ranking-scroll">
-        <table id="ranking-table" style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead>
-            <tr id="ranking-head" style="background:var(--surface2)"></tr>
-          </thead>
-          <tbody id="ranking-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
   <!-- FILTROS -->
   <div class="filters-box">
     <div class="filters-label">⚙ Filtros</div>
@@ -289,6 +248,27 @@ td.muted{color:var(--muted)}
         <select id="f-pagamento" onchange="applyFilters()"><option value="">Todos</option></select>
       </div>
       <div id="clear-btn-wrap"></div>
+    </div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="ranking-box">
+    <div class="table-head" onclick="toggleRanking()" style="cursor:pointer">
+      <div class="section-title" style="margin-bottom:0">Participações por Militar</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;color:var(--muted)" id="ranking-hint">ordene clicando nas colunas</span>
+        <button id="ranking-toggle-btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-family:DM Sans,sans-serif;transition:all .2s">▲ Recolher</button>
+      </div>
+    </div>
+    <div id="ranking-content">
+      <div class="ranking-scroll">
+        <table id="ranking-table" style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr id="ranking-head" style="background:var(--surface2)"></tr>
+          </thead>
+          <tbody id="ranking-body"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
