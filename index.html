@@ -297,9 +297,8 @@ function loadAll(){
 
 // ── FILTROS ────────────────────────────────────────────────────
 function buildFilters(){
-  // Militar: vem da aba MILITARES — usa MILITAR se existir, senão NOME
-  const nomesMil = allMilitares.map(r=>r['MILITAR']||r['NOME']).filter(Boolean).sort();
-  fillSelect('f-militar', nomesMil, false);
+  // Militar: filtro continua usando a coluna MILITAR do REGISTRO
+  fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
 
   // Ano: extraído da coluna DATA
   const anos = uniq(allData.map(r=>{
@@ -549,18 +548,22 @@ let rankSortCol = 'total';
 let rankSortDir = 'desc';
 
 function renderRanking(){
-  // Monta lista de todos os militares cadastrados
-  const militares = allMilitares.map(r => ({
-    nome:  r['MILITAR'] || r['NOME'] || '',
-    cargo: r['CARGO'] || ''
-  })).filter(m => m.nome);
+  // Monta lookup: ORD -> { nome, cargo } da aba MILITARES
+  const milMap = {};
+  allMilitares.forEach(r => {
+    const ord = String(r['ORD']||'').trim();
+    if(ord) milMap[ord] = { nome: r['NOME']||r['MILITAR']||'', cargo: r['CARGO']||'' };
+  });
 
-  // Cruza com registros filtrados
-  const rows = militares.map(m => {
-    const regs    = filtered.filter(r => r['MILITAR'] === m.nome);
-    const extras  = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'EXTRA').length;
-    const ops     = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'OPERAÇÃO').length;
-    const total   = regs.length;
+  // Monta lista a partir da aba MILITARES (todos os cadastrados)
+  const militares = Object.entries(milMap).map(([ord, m]) => ({ ord, ...m }));
+
+  // Cruza com registros filtrados pelo Nº MILITAR = ORD
+  const rows = militares.filter(m => m.nome).map(m => {
+    const regs   = filtered.filter(r => String(r['Nº MILITAR']||'').trim() === m.ord);
+    const extras = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'EXTRA').length;
+    const ops    = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'OPERAÇÃO').length;
+    const total  = regs.length;
     return { ...m, extras, ops, total };
   });
 
@@ -602,8 +605,11 @@ function renderRanking(){
   document.getElementById('ranking-body').innerHTML = rows.map((r,i) => {
     const rankClass = i===0?'top1':i===1?'top2':i===2?'top3':'';
     const rankLabel = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}`;
-    const apelido   = r.nome.split(' ').pop();
+    // Mostra o nome completo sem o prefixo de posto/graduação
+    // Ex: "2º SGT QBM_COMB L FERNANDO" -> "L FERNANDO"
     const nomeCompleto = r.nome;
+    // NOME vem direto da aba MILITARES — já é o nome limpo
+    const apelido = r.nome;
 
     const totalBar  = `<div class="rank-bar-wrap"><div class="rank-bar" style="width:${r.total?Math.round((r.total/maxTotal)*100):0}%"></div></div>`;
     const extrasBar = `<div class="rank-bar-wrap"><div class="rank-bar" style="width:${r.extras?Math.round((r.extras/maxExtras)*100):0}%"></div></div>`;
