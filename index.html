@@ -98,6 +98,45 @@ td.muted{color:var(--muted)}
 
 .state-box{padding:50px 20px;text-align:center;color:var(--muted)}
 
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:100%;max-width:780px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.modal-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1;gap:12px}
+.modal-header h2{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--text)}
+.modal-header .cargo-tag{font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px}
+.modal-close{background:transparent;border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:20px 22px;display:flex;flex-direction:column;gap:20px}
+.modal-section-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.modal-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.modal-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.modal-card .mc-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.modal-card .mc-val{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1}
+.modal-card .mc-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.modal-chart{display:flex;align-items:flex-end;gap:8px;height:100px;padding:4px 0}
+.modal-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.modal-bar-val{font-size:11px;font-weight:600;color:var(--text)}
+.modal-bar{width:100%;background:var(--accent);border-radius:3px 3px 0 0;min-height:3px}
+.modal-bar-label{font-size:10px;color:var(--muted);white-space:nowrap}
+.svc-list{display:flex;flex-direction:column;gap:6px}
+.svc-item{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.svc-name{font-size:13px;font-weight:500;color:var(--text)}
+.svc-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.svc-count{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--accent2)}
+.modal-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.modal-filter label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.modal-filter select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 28px 5px 9px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.modal-filter select:focus{outline:none;border-color:var(--accent)}
+.modal-regs{overflow-x:auto}
+.modal-regs table{width:100%;border-collapse:collapse;font-size:12px}
+.modal-regs thead tr{background:var(--surface2)}
+.modal-regs th{padding:8px 12px;text-align:left;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.modal-regs tbody tr{border-bottom:1px solid var(--border)}
+.modal-regs tbody tr:last-child{border-bottom:none}
+.modal-regs tbody tr:hover{background:rgba(224,92,0,.05)}
+.modal-regs td{padding:8px 12px;color:var(--text);white-space:nowrap}
+
 /* RANKING TABLE */
 .ranking-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
 .ranking-scroll{overflow-x:auto}
@@ -242,6 +281,20 @@ td.muted{color:var(--muted)}
     <div class="pagination" id="pagination"></div>
   </div>
 </main>
+
+<!-- MODAL MILITAR -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <h2 id="modal-nome">—</h2>
+        <span class="cargo-tag" id="modal-cargo"></span>
+      </div>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
 
 <script>
 const PER_PAGE = 20;
@@ -632,7 +685,7 @@ function renderRanking(){
     const extrasBar = `<div class="rank-bar-wrap"><div class="rank-bar" style="width:${r.extras?Math.round((r.extras/maxExtras)*100):0}%"></div></div>`;
     const opsBar    = `<div class="rank-bar-wrap"><div class="rank-bar green" style="width:${r.ops?Math.round((r.ops/maxOps)*100):0}%"></div></div>`;
 
-    return `<tr style="border-bottom:1px solid var(--border);transition:background .1s" onmouseover="this.style.background='rgba(224,92,0,.05)'" onmouseout="this.style.background=''">
+    return `<tr style="border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer" onclick="openModal('${r.ord}')" onmouseover="this.style.background='rgba(224,92,0,.05)'" onmouseout="this.style.background=''">
       <td style="padding:10px 14px;text-align:center"><span class="rank-num ${rankClass}">${rankLabel}</span></td>
       <td style="padding:10px 14px;color:var(--muted);white-space:nowrap;font-size:12px">${r.cargo}</td>
       <td style="padding:10px 14px;white-space:nowrap" title="${nomeCompleto}"><strong>${apelido}</strong></td>
@@ -668,6 +721,145 @@ function setRankSort(col){
   rankSortDir = rankSortCol===col ? (rankSortDir==='asc'?'desc':'asc') : 'desc';
   rankSortCol = col;
   renderRanking();
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+let modalOrd = null;
+
+function openModal(ord){
+  modalOrd = ord;
+  const milEntry = Object.entries((() => {
+    const m = {};
+    allMilitares.forEach(r => { const o=String(r['ORD']||'').trim(); if(o) m[o]={nome:r['NOME']||r['MILITAR']||'',cargo:r['CARGO']||''}; });
+    return m;
+  })()).find(([o]) => o === ord);
+
+  const nome  = milEntry ? milEntry[1].nome  : ord;
+  const cargo = milEntry ? milEntry[1].cargo : '';
+
+  document.getElementById('modal-nome').textContent  = nome;
+  document.getElementById('modal-cargo').textContent = cargo;
+  renderModalBody(ord, '');
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('modal-overlay')) closeModalBtn();
+}
+function closeModalBtn(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderModalBody(ord, mesFiltro){
+  const regs = allData.filter(r => String(r['Nº MILITAR']||'').trim() === ord);
+  const meses = sortMes([...new Set(regs.map(r=>r['MÊS']||'').filter(Boolean))]);
+  const regsFiltered = mesFiltro ? regs.filter(r=>(r['MÊS']||'').toLowerCase()===mesFiltro.toLowerCase()) : regs;
+
+  // ── Mini dashboard por mês ──
+  const mesCards = meses.map(mes => {
+    const rm      = regs.filter(r=>(r['MÊS']||'').toLowerCase()===mes.toLowerCase());
+    const extras  = rm.filter(r=>(r['TIPO']||'').toUpperCase()==='EXTRA').length;
+    const ops     = rm.filter(r=>(r['TIPO']||'').toUpperCase()==='OPERAÇÃO').length;
+    const diarias = rm.filter(r=>(r['PAGAMENTO']||'').toLowerCase()==='diária').length;
+    const extrasP = rm.filter(r=>(r['PAGAMENTO']||'').toLowerCase()==='extra').length;
+    return `<div class="modal-card">
+      <div class="mc-label">${cap(mes)}</div>
+      <div class="mc-val">${rm.length}</div>
+      <div class="mc-sub">${extras>0?extras+' extra'+(extras>1?'s':''):''}${extras>0&&ops>0?' · ':''}${ops>0?ops+' op'+(ops>1?'s':''):''}</div>
+      <div class="mc-sub" style="margin-top:2px">${extrasP>0?extrasP+' pgto extra':''}${extrasP>0&&diarias>0?' · ':''}${diarias>0?diarias+' diária'+(diarias>1?'s':''):''}</div>
+    </div>`;
+  }).join('');
+
+  // ── Gráfico por mês ──
+  const maxM = Math.max(...meses.map(mes=>regs.filter(r=>(r['MÊS']||'').toLowerCase()===mes.toLowerCase()).length),1);
+  const chartHtml = meses.length ? meses.map(mes => {
+    const cnt = regs.filter(r=>(r['MÊS']||'').toLowerCase()===mes.toLowerCase()).length;
+    return `<div class="modal-bar-col">
+      <span class="modal-bar-val">${cnt}</span>
+      <div class="modal-bar" style="height:${Math.max(3,(cnt/maxM)*80)}px"></div>
+      <span class="modal-bar-label">${cap(mes).slice(0,3)}</span>
+    </div>`;
+  }).join('') : '';
+
+  // ── Resumo por serviço (usando registros filtrados por mês) ──
+  const svcMap = {};
+  regsFiltered.forEach(r => {
+    const k = r['SERVIÇO']||'?';
+    if(!svcMap[k]) svcMap[k] = {tipo:r['TIPO']||'',pagamentos:{},count:0};
+    svcMap[k].count++;
+    const pg = r['PAGAMENTO']||'?';
+    svcMap[k].pagamentos[pg] = (svcMap[k].pagamentos[pg]||0)+1;
+  });
+
+  const svcHtml = Object.entries(svcMap)
+    .sort((a,b)=>b[1].count-a[1].count)
+    .map(([nome,v]) => {
+      const tipo = (v.tipo||'').toUpperCase();
+      const tipoBadge = tipo==='OPERAÇÃO'
+        ? `<span class="badge badge-operacao">OPERAÇÃO</span>`
+        : `<span class="badge badge-extra">EXTRA</span>`;
+      const pgBadges = Object.entries(v.pagamentos).map(([pg,n])=>
+        `<span class="badge ${pg==='Extra'?'badge-extra':'badge-diaria'}">${pg} ×${n}</span>`
+      ).join(' ');
+      return `<div class="svc-item">
+        <span class="svc-name">${nome}</span>
+        <div class="svc-meta">
+          <span class="svc-count">${v.count}×</span>
+          ${tipoBadge}
+          ${pgBadges}
+        </div>
+      </div>`;
+    }).join('');
+
+  // ── Filtro de mês ──
+  const mesOpts = ['<option value="">Todos os meses</option>',
+    ...meses.map(m=>`<option value="${m}" ${mesFiltro===m?'selected':''}>${cap(m)}</option>`)
+  ].join('');
+
+  // ── Tabela de registros ──
+  const regsHtml = regsFiltered.length ? `
+    <div class="modal-regs">
+      <table>
+        <thead><tr>
+          <th>Data</th><th>Serviço</th><th>Tipo</th><th>Pagamento</th><th>Obs</th>
+        </tr></thead>
+        <tbody>
+          ${regsFiltered.map(r=>`<tr>
+            <td style="color:var(--muted)">${formatData(r['DATA'])}</td>
+            <td>${r['SERVIÇO']||''}</td>
+            <td>${(r['TIPO']||'').toUpperCase()==='OPERAÇÃO'?'<span class="badge badge-operacao">OPERAÇÃO</span>':'<span class="badge badge-extra">EXTRA</span>'}</td>
+            <td><span class="badge ${r['PAGAMENTO']==='Extra'?'badge-extra':'badge-diaria'}">${r['PAGAMENTO']||''}</span></td>
+            <td style="color:var(--muted)">${r['OBS']||'—'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>` : `<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Nenhum registro neste mês.</div>`;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div>
+      <div class="modal-section-title">Resumo por Mês</div>
+      <div class="modal-cards">${mesCards}</div>
+    </div>
+    ${meses.length > 1 ? `<div>
+      <div class="modal-section-title">Participações por Mês</div>
+      <div class="modal-chart">${chartHtml}</div>
+    </div>` : ''}
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div class="modal-section-title" style="margin-bottom:0">Resumo por Serviço</div>
+        <div class="modal-filter">
+          <label>Filtrar mês:</label>
+          <select onchange="renderModalBody('${ord}', this.value)">${mesOpts}</select>
+        </div>
+      </div>
+      <div class="svc-list">${svcHtml||'<div style="color:var(--muted);font-size:13px">Nenhum registro.</div>'}</div>
+    </div>
+    <div>
+      <div class="modal-section-title">Registros ${mesFiltro?'— '+cap(mesFiltro):''}</div>
+      ${regsHtml}
+    </div>`;
 }
 
 loadAll();
