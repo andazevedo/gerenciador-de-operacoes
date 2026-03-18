@@ -560,11 +560,15 @@ function renderRanking(){
 
   // Cruza com registros filtrados pelo Nº MILITAR = ORD
   const rows = militares.filter(m => m.nome).map(m => {
-    const regs   = filtered.filter(r => String(r['Nº MILITAR']||'').trim() === m.ord);
-    const extras = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'EXTRA').length;
-    const ops    = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'OPERAÇÃO').length;
-    const total  = regs.length;
-    return { ...m, extras, ops, total };
+    const regs        = filtered.filter(r => String(r['Nº MILITAR']||'').trim() === m.ord);
+    const regsExtra   = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'EXTRA');
+    const regsOp      = regs.filter(r => (r['TIPO']||'').toUpperCase() === 'OPERAÇÃO');
+    const extras      = regsExtra.length;
+    const extrasUniq  = new Set(regsExtra.map(r=>r['SERVIÇO']||'')).size;
+    const ops         = regsOp.length;
+    const opsUniq     = new Set(regsOp.map(r=>r['SERVIÇO']||'')).size;
+    const total       = regs.length;
+    return { ...m, extras, extrasUniq, ops, opsUniq, total };
   });
 
   // Ordena
@@ -627,13 +631,19 @@ function renderRanking(){
       </td>
       <td style="padding:10px 14px">
         <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-family:Rajdhani,sans-serif;font-size:15px;font-weight:700;color:${r.extras?'var(--accent2)':'var(--border)'};min-width:24px">${r.extras||'—'}</span>
+          <div>
+            <div style="font-family:Rajdhani,sans-serif;font-size:15px;font-weight:700;color:${r.extras?'var(--accent2)':'var(--border)'}">${r.extras||'—'}</div>
+            ${r.extras ? `<div style="font-size:11px;color:var(--muted)">${r.extrasUniq} distinta${r.extrasUniq!==1?'s':''}</div>` : ''}
+          </div>
           ${extrasBar}
         </div>
       </td>
       <td style="padding:10px 14px">
         <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-family:Rajdhani,sans-serif;font-size:15px;font-weight:700;color:${r.ops?'var(--green)':'var(--border)'};min-width:24px">${r.ops||'—'}</span>
+          <div>
+            <div style="font-family:Rajdhani,sans-serif;font-size:15px;font-weight:700;color:${r.ops?'var(--green)':'var(--border)'}">${r.ops||'—'}</div>
+            ${r.ops ? `<div style="font-size:11px;color:var(--muted)">${r.opsUniq} distinta${r.opsUniq!==1?'s':''}</div>` : ''}
+          </div>
           ${opsBar}
         </div>
       </td>
