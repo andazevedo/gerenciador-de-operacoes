@@ -335,7 +335,17 @@ function setStatus(type, msg){
 function loadAll(){
   setStatus('loading', 'Carregando dados...');
   let done = 0;
-  function check(){ if(++done === 3){ setStatus('ok', allData.length + ' registros carregados'); buildFilters(); applyFilters(); } }
+  function check(){
+    console.log('⏳ check done='+done, '| allData:'+allData.length, '| allMilitares:'+allMilitares.length, '| allOperacoes:'+allOperacoes.length);
+    if(++done === 3){
+      console.log('✅ Todas as abas carregadas!');
+      console.log('📌 Amostra MILITARES:', allMilitares.slice(0,2));
+      console.log('📌 Amostra REGISTRO:', allData.slice(0,2));
+      setStatus('ok', allData.length + ' registros carregados');
+      buildFilters();
+      applyFilters();
+    }
+  }
 
   Papa.parse(URL_REGISTRO, {
     download:true, header:true, skipEmptyLines:true,
@@ -640,8 +650,10 @@ function renderRanking(){
     const ops         = regsOp.length;
     const opsUniq     = new Set(regsOp.map(r=>r['SERVIÇO']||'')).size;
     const total       = regs.length;
+    const antiguidade = Number(m.ord);
     return { ...m, extras, extrasUniq, ops, opsUniq, total, antiguidade };
   });
+  console.log('🏅 Ranking rows sample:', rows.slice(0,3).map(r=>({ord:r.ord,nome:r.nome,cargo:r.cargo,total:r.total,antiguidade:r.antiguidade})));
 
   // Ordena
   rows.sort((a,b) => {
