@@ -356,8 +356,13 @@ function loadAll(){
 
 // ── FILTROS ────────────────────────────────────────────────────
 function buildFilters(){
-  // Militar: filtro continua usando a coluna MILITAR do REGISTRO
-  fillSelect('f-militar', uniq(allData.map(r=>r['MILITAR'])).sort(), false);
+  // Militar: filtro segue a ordem da aba MILITARES (coluna ORD)
+  const milOrdenados = allMilitares
+    .slice()
+    .sort((a,b) => Number(a['ORD']||0) - Number(b['ORD']||0))
+    .map(r => r['MILITAR']||r['NOME']||'')
+    .filter((v,i,arr) => v && arr.indexOf(v)===i); // remove duplicatas mantendo ordem
+  fillSelect('f-militar', milOrdenados, false);
 
   // Ano: extraído da coluna DATA
   const anos = uniq(allData.map(r=>{
@@ -603,8 +608,8 @@ function renderTable(){
 function goPage(p){ currentPage=p; renderTable(); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // ── RANKING POR MILITAR ────────────────────────────────────────
-let rankSortCol = 'total';
-let rankSortDir = 'desc';
+let rankSortCol = 'antiguidade';
+let rankSortDir = 'asc';
 let rankingOpen = true;
 
 function toggleRanking(){
@@ -635,13 +640,13 @@ function renderRanking(){
     const ops         = regsOp.length;
     const opsUniq     = new Set(regsOp.map(r=>r['SERVIÇO']||'')).size;
     const total       = regs.length;
-    return { ...m, extras, extrasUniq, ops, opsUniq, total };
+    return { ...m, extras, extrasUniq, ops, opsUniq, total, antiguidade };
   });
 
   // Ordena
   rows.sort((a,b) => {
     const va = a[rankSortCol], vb = b[rankSortCol];
-    if(typeof va === 'string') return rankSortDir==='asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    if(typeof va === 'string') return rankSortDir==='asc' ? va.localeCompare(vb,'pt') : vb.localeCompare(va,'pt');
     return rankSortDir==='asc' ? va-vb : vb-va;
   });
 
@@ -650,12 +655,13 @@ function renderRanking(){
   const maxOps = Math.max(...rows.map(r=>r.ops), 1);
 
   const RCOLS = [
-    {key:'rank',    label:'#'},
-    {key:'cargo',   label:'Cargo'},
-    {key:'nome',    label:'Nome'},
-    {key:'total',   label:'Total'},
-    {key:'extras',  label:'Extras'},
-    {key:'ops',     label:'Operações'},
+    {key:'rank',       label:'#'},
+    {key:'antiguidade',label:'Ant.'},
+    {key:'cargo',      label:'Cargo'},
+    {key:'nome',       label:'Nome'},
+    {key:'total',      label:'Total'},
+    {key:'extras',     label:'Extras'},
+    {key:'ops',        label:'Operações'},
   ];
 
   const arrow = col => {
@@ -688,6 +694,7 @@ function renderRanking(){
 
     return `<tr style="border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer" onclick="openModal('${r.ord}')" onmouseover="this.style.background='rgba(224,92,0,.05)'" onmouseout="this.style.background=''">
       <td style="padding:10px 14px;text-align:center"><span class="rank-num ${rankClass}">${rankLabel}</span></td>
+      <td style="padding:10px 14px;text-align:center;color:var(--muted);font-family:Rajdhani,sans-serif;font-size:13px;font-weight:600">${r.antiguidade}º</td>
       <td style="padding:10px 14px;color:var(--muted);white-space:nowrap;font-size:12px">${r.cargo}</td>
       <td style="padding:10px 14px;white-space:nowrap" title="${nomeCompleto}"><strong>${apelido}</strong></td>
       <td style="padding:10px 14px">
