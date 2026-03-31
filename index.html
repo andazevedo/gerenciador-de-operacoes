@@ -506,11 +506,15 @@ function renderHighlights(){
     if(!top) return '';
     const [nome, qtd] = top;
     const apelido = nome.split(' ').pop();
+    // busca cargo cruzando pelo campo MILITAR da aba MILITARES
+    const milEntry = allMilitares.find(m => (m['MILITAR']||m['NOME']||'') === nome);
+    const cargo = milEntry ? (milEntry['CARGO']||'') : '';
     return `
       <div class="highlight-card">
         <div class="highlight-rank">🏆</div>
         <div class="highlight-info">
           <div class="name">${apelido}</div>
+          ${cargo ? `<div style="font-size:11px;color:var(--accent2);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px;margin-top:1px">${cargo}</div>` : ''}
           <div class="count">${qtd} participação${qtd>1?'s':''}</div>
           <div class="mes">${cap(mes)}</div>
         </div>
