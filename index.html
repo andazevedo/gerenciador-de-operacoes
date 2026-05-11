@@ -1322,8 +1322,9 @@ async function enviarEscala(){
 
   try{
 
-    const res = await fetch(URL_SCRIPT, {
+     await fetch(URL_SCRIPT, {
       method:'POST',
+       mode:'no-cors',
       headers:{
         'Content-Type':'application/json'
       },
@@ -1333,16 +1334,12 @@ async function enviarEscala(){
 })
     });
 
-    const json = await res.json();
+alert('Escala registrada com sucesso!');
+closeEscalaModal();
 
-    if(json.success){
-      alert('Escala registrada com sucesso!');
-      closeEscalaModal();
-      loadAll();
-    }else{
-      alert('Erro ao registrar.');
-      console.log(json);
-    }
+setTimeout(()=>{
+  loadAll();
+},1000);
 
   }catch(err){
     console.error(err);
@@ -1372,58 +1369,50 @@ function closeMilitarModal(){
 
 async function salvarMilitar(){
 
-  const ord = document.getElementById('novo-mil-ord').value;
-  const nome = document.getElementById('novo-mil-nome').value;
-  const cargo = document.getElementById('novo-mil-cargo').value;
+  const ord      = document.getElementById('mil-ord').value;
+  const militar  = document.getElementById('mil-completo').value;
+  const nome     = document.getElementById('mil-nome').value;
+  const cargo    = document.getElementById('mil-cargo').value;
 
-  if(!ord || !nome || !cargo){
-
+  if(!ord || !militar || !nome || !cargo){
     alert('Preencha todos os campos.');
     return;
   }
 
   try{
 
-    const res = await fetch(URL_SCRIPT, {
-
+    await fetch(URL_SCRIPT,{
       method:'POST',
-
+      mode:'no-cors',
       headers:{
         'Content-Type':'application/json'
       },
-
       body:JSON.stringify({
-        action:'novo_militar',
+        novoMilitar:true,
         ord,
+        militar,
         nome,
         cargo
       })
     });
 
-    const json = await res.json();
+    alert('Militar cadastrado!');
 
-    if(json.success){
+    closeMilitarModal();
 
-      alert('Militar cadastrado!');
-
-      closeMilitarModal();
-
+    setTimeout(()=>{
       loadAll();
-
-    }else{
-
-      alert('Erro ao salvar.');
-      console.log(json);
-    }
+    },1000);
 
   }catch(err){
 
     console.error(err);
 
-    alert('Erro ao enviar.');
-  }
-}
+    alert('Erro ao cadastrar.');
 
+  }
+
+}
 // =========================
 // MODAL OPERAÇÃO
 // =========================
@@ -1446,59 +1435,46 @@ function closeOperacaoModal(){
 
 async function salvarOperacao(){
 
-  const servico =
-    document.getElementById('nova-operacao-nome').value;
-
-  const tipo =
-    document.getElementById('nova-operacao-tipo').value;
+  const servico = document.getElementById('op-servico').value;
+  const tipo    = document.getElementById('op-tipo').value;
 
   if(!servico){
-
-    alert('Informe o nome da operação.');
+    alert('Digite o serviço.');
     return;
   }
 
   try{
 
-    const res = await fetch(URL_SCRIPT, {
-
+    await fetch(URL_SCRIPT,{
       method:'POST',
-
+      mode:'no-cors',
       headers:{
         'Content-Type':'application/json'
       },
-
       body:JSON.stringify({
-        action:'nova_operacao',
+        novaOperacao:true,
         servico,
         tipo
       })
     });
 
-    const json = await res.json();
+    alert('Operação cadastrada!');
 
-    if(json.success){
+    closeOperacaoModal();
 
-      alert('Operação cadastrada!');
-
-      closeOperacaoModal();
-
+    setTimeout(()=>{
       loadAll();
-
-    }else{
-
-      alert('Erro ao salvar.');
-      console.log(json);
-    }
+    },1000);
 
   }catch(err){
 
     console.error(err);
 
-    alert('Erro ao enviar.');
-  }
-}
+    alert('Erro ao cadastrar.');
 
+  }
+
+}
 loadAll();
   
 </script>
