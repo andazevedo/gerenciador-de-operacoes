@@ -3,7 +3,7 @@
   "private": true,
   "description": "Front estático (HTML/CSS/JS em ES modules). Sem bundler — não há compilação.",
   "scripts": {
-    "start": "npx --yes serve .",
-    "build": "node -e \"console.log('\\nEste projeto não possui etapa de build.'); console.log('Arquivos finais na raiz: index.html, css/, js/'); console.log('Para testar localmente: npm start\\n'); process.exit(0);\""
+    "start": "npx --yes serve public",
+    "build": "node -e \"console.log('Build: site estático já em public/. Nada a compilar.'); process.exit(0);\""
   }
 }
