@@ -167,6 +167,73 @@ td.muted{color:var(--muted)}
   .filters-grid{grid-template-columns:1fr 1fr}
   .dashboard{grid-template-columns:1fr 1fr}
 }
+  /* CADASTRO DE ESCALA */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+
+.escala-box{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+}
+
+.escala-lista{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.escala-tag{
+  background:rgba(224,92,0,.12);
+  border:1px solid rgba(224,92,0,.3);
+  color:var(--accent2);
+  padding:6px 10px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+}
+
+.escala-tag button{
+  background:none;
+  border:none;
+  color:var(--red);
+  cursor:pointer;
+  font-size:12px;
+}
+
+.btn-primary{
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  letter-spacing:1px;
+  transition:.2s;
+}
+
+.btn-primary:hover{
+  background:var(--accent2);
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
 </style>
 </head>
 <body>
@@ -181,6 +248,9 @@ td.muted{color:var(--muted)}
   <div class="status-bar">
     <div class="dot loading" id="dot"></div>
     <span id="status-text">Carregando dados...</span>
+    <button class="btn-ghost" onclick="openEscalaModal()">
+     ➕ Nova Escala
+    </button>
   </div>
 
   <!-- DASHBOARD -->
@@ -297,6 +367,77 @@ td.muted{color:var(--muted)}
   </div>
 </div>
 
+  <!-- MODAL NOVA ESCALA -->
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Operação / Serviço</label>
+          <select id="nova-servico"></select>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="novo-tipo"></select>
+        </div>
+
+        <div class="form-group">
+          <label>Pagamento</label>
+          <select id="novo-pagamento">
+            <option value="Extra">Extra</option>
+            <option value="Diária">Diária</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" id="nova-data">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Observação</label>
+        <textarea id="nova-obs"></textarea>
+      </div>
+
+      <div class="escala-box">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Adicionar Militar</label>
+            <select id="militar-select"></select>
+          </div>
+
+          <div class="form-group" style="display:flex;align-items:end">
+            <button class="btn-primary" onclick="addMilitarEscala()">
+              + Adicionar
+            </button>
+          </div>
+
+        </div>
+
+        <div class="escala-lista" id="escala-lista"></div>
+
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeEscalaModal()">
+          Cancelar
+        </button>
+
+        <button class="btn-primary" onclick="enviarEscala()">
+          Registrar Escala
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 const PER_PAGE = 20;
 const MES_ORDER = {janeiro:1,fevereiro:2,março:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
@@ -312,6 +453,8 @@ let filtered     = [];
 let currentPage  = 1;
 let sortCol      = 'DATA';
 let sortDir      = 'asc';
+let escalaMilitares = [];
+const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbw05Mei_E5v6OpwVTXJ-S0L4N9LYoPBFbxqJgIA_EZQhvrIBFsted9BM1cPY10T6MLFHA/exec';
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function formatData(s){
@@ -886,7 +1029,76 @@ function renderModalBody(ord, mesFiltro){
     </div>`;
 }
 
+  function openEscalaModal(){
+    lista.innerHTML = '<span style="color:var(--muted);font-size:13px">Nenhum militar adicionado.</span>';
+    return;
+  }
+
+  lista.innerHTML = escalaMilitares.map(m => `
+    <div class="escala-tag">
+      ${m.nome}
+      <button onclick="removeMilitarEscala('${m.ord}')">✕</button>
+    </div>
+  `).join('');
+}
+
+async function enviarEscala(){
+
+  if(!escalaMilitares.length){
+    alert('Adicione pelo menos 1 militar.');
+    return;
+  }
+
+  const servico   = document.getElementById('nova-servico').value;
+  const tipo      = document.getElementById('novo-tipo').value;
+  const pagamento = document.getElementById('novo-pagamento').value;
+  const data      = document.getElementById('nova-data').value;
+  const obs       = document.getElementById('nova-obs').value;
+
+  const mes = new Date(data+'T00:00:00').toLocaleDateString('pt-BR', {
+    month:'long'
+  });
+
+  const registros = escalaMilitares.map(m => ({
+    data,
+    numero: m.ord,
+    militar: m.nome,
+    servico,
+    tipo,
+    pagamento,
+    obs,
+    mes
+  }));
+
+  try{
+
+    const res = await fetch(URL_SCRIPT, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({ registros })
+    });
+
+    const json = await res.json();
+
+    if(json.success){
+      alert('Escala registrada com sucesso!');
+      closeEscalaModal();
+      loadAll();
+    }else{
+      alert('Erro ao registrar.');
+      console.log(json);
+    }
+
+  }catch(err){
+    console.error(err);
+    alert('Erro ao enviar dados.');
+  }
+}
+
 loadAll();
+  
 </script>
 </body>
 </html>
