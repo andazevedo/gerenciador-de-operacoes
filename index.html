@@ -234,6 +234,43 @@ td.muted{color:var(--muted)}
   margin-top:10px;
   flex-wrap:wrap;
 }
+  .form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group label{
+  font-size:11px;
+  font-weight:500;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  background:var(--bg);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px;
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+}
+
+.form-group textarea{
+  min-height:90px;
+  resize:vertical;
+}
 </style>
 </head>
 <body>
@@ -366,8 +403,17 @@ td.muted{color:var(--muted)}
     <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
+<!-- MODAL NOVA ESCALA -->
+<div class="modal-overlay" id="escala-modal-overlay">
+  <div class="modal">
 
-  <!-- MODAL NOVA ESCALA -->
+    <div class="modal-header">
+      <h2>Nova Escala</h2>
+
+      <button class="modal-close" onclick="closeEscalaModal()">
+        ✕
+      </button>
+    </div>
 
     <div class="modal-body">
 
@@ -425,6 +471,7 @@ td.muted{color:var(--muted)}
       </div>
 
       <div class="modal-actions">
+
         <button class="btn-ghost" onclick="closeEscalaModal()">
           Cancelar
         </button>
@@ -432,10 +479,14 @@ td.muted{color:var(--muted)}
         <button class="btn-primary" onclick="enviarEscala()">
           Registrar Escala
         </button>
+
       </div>
 
     </div>
+
   </div>
+</div>
+ 
 </div>
 
 <script>
@@ -1028,16 +1079,104 @@ function renderModalBody(ord, mesFiltro){
       ${regsHtml}
     </div>`;
 }
+function openEscalaModal(){
 
-  function openEscalaModal(){
-    lista.innerHTML = '<span style="color:var(--muted);font-size:13px">Nenhum militar adicionado.</span>';
+  document.getElementById('escala-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  escalaMilitares = [];
+
+  preencherSelectsEscala();
+  renderEscalaLista();
+}
+
+function closeEscalaModal(){
+
+  document.getElementById('escala-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function preencherSelectsEscala(){
+
+  const servicoSel = document.getElementById('nova-servico');
+
+  servicoSel.innerHTML = allOperacoes.map(o =>
+    `<option value="${o['SERVIÇO']}">${o['SERVIÇO']}</option>`
+  ).join('');
+
+  const tipos = [...new Set(
+    allOperacoes.map(o => o['TIPO']).filter(Boolean)
+  )];
+
+  document.getElementById('novo-tipo').innerHTML =
+    tipos.map(t => `<option value="${t}">${t}</option>`).join('');
+
+  const militarSel = document.getElementById('militar-select');
+
+  militarSel.innerHTML = allMilitares
+    .sort((a,b)=>Number(a['ORD'])-Number(b['ORD']))
+    .map(m => `
+      <option value="${m['ORD']}">
+        ${m['NOME'] || m['MILITAR']}
+      </option>
+    `).join('');
+}
+
+function addMilitarEscala(){
+
+  const select = document.getElementById('militar-select');
+
+  const ord = select.value;
+
+  const militar = allMilitares.find(
+    m => String(m['ORD']) === String(ord)
+  );
+
+  if(!militar) return;
+
+  const nome = militar['NOME'] || militar['MILITAR'];
+
+  if(escalaMilitares.some(m => m.ord === ord)){
+    alert('Militar já adicionado.');
+    return;
+  }
+
+  escalaMilitares.push({
+    ord,
+    nome
+  });
+
+  renderEscalaLista();
+}
+
+function removeMilitarEscala(ord){
+
+  escalaMilitares = escalaMilitares.filter(
+    m => m.ord !== ord
+  );
+
+  renderEscalaLista();
+}
+
+function renderEscalaLista(){
+
+  const lista = document.getElementById('escala-lista');
+
+  if(!escalaMilitares.length){
+
+    lista.innerHTML =
+      '<span style="color:var(--muted);font-size:13px">Nenhum militar adicionado.</span>';
+
     return;
   }
 
   lista.innerHTML = escalaMilitares.map(m => `
     <div class="escala-tag">
       ${m.nome}
-      <button onclick="removeMilitarEscala('${m.ord}')">✕</button>
+
+      <button onclick="removeMilitarEscala('${m.ord}')">
+        ✕
+      </button>
     </div>
   `).join('');
 }
