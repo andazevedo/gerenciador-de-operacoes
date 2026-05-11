@@ -1325,8 +1325,8 @@ async function enviarEscala(){
      await fetch(URL_SCRIPT, {
       method:'POST',
        mode:'cors',
-      headers:{
-          'Content-Type':'text/plain;charset=utf-8'
+    headers:{
+        'Content-Type':'text/plain;charset=utf-8'
       },
      body:JSON.stringify({
   action:'nova_escala',
@@ -1383,7 +1383,7 @@ async function salvarMilitar(){
 
     await fetch(URL_SCRIPT,{
       method:'POST',
-      headers:{
+     headers:{
         'Content-Type':'text/plain;charset=utf-8'
       },
       body:JSON.stringify({
@@ -1448,7 +1448,7 @@ async function salvarOperacao(){
       method:'POST',
       mode:'cors',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'text/plain;charset=utf-8'
       },
       body:JSON.stringify({
         action:'nova_operacao',
