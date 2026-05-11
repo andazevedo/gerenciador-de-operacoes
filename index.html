@@ -624,25 +624,16 @@ let escalaMilitares = [];
 const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwNRnXT4QjUBlLijDJUuyK2PKP-DSbpWy9H--mE7QqLlSHRVT8Y0xEHdUJ0_UJgorkDbA/exec';
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
-function formatData(s){
-
-  if(!s) return '';
-
-  // se vier yyyy-mm-dd
-  if(s.includes('-')){
-
-    const [ano, mes, dia] = s.split('-');
-
-    return `${dia}/${mes}/${ano}`;
-  }
-
-  // se vier objeto Date
+function formatData(s){ 
+  if(!s) return ''; 
   const d = new Date(s);
-
   if(isNaN(d)) return s;
-
-  return d.toLocaleDateString('pt-BR');
-}
+  return d.toLocaleDateString('pt-BR'); 
+} function uniq(arr){ 
+  return [...new Set(arr)].filter(Boolean); }
+  function sortMes(arr){ 
+    return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); 
+  }
 
 // ── CARREGAR AS 3 ABAS ─────────────────────────────────────────
 function loadAll(){
