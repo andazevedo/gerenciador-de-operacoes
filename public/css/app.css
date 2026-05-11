@@ -213,8 +213,17 @@ td.muted{color:var(--muted)}
   transition:.2s;
 }
 
-.btn-primary:hover{
+.btn-primary:hover:not(:disabled){
   background:var(--accent2);
+}
+
+.btn-primary:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.btn-primary.btn-busy{
+  cursor:wait;
 }
 
 .modal-actions{
