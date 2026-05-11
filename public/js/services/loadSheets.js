@@ -8,6 +8,8 @@ const SKIP_PERM_AUT_URL = URL_PERM_AUT.includes('SUBSTITUIR_GID_PERM_AUT');
 export function loadAll() {
   setStatus('loading', 'Carregando dados...');
   let done = 0;
+  /** Papa Parse falhou no CSV público da aba (ex.: não republicada na web → redirect para login). */
+  let permAutCsvFailed = false;
 
   function check() {
     console.log(
@@ -24,10 +26,19 @@ export function loadAll() {
     );
     if (++done === 4) {
       console.log('✅ Abas carregadas (incl. PERM E AUT).');
-      setStatus(
-        'ok',
-        store.allData.length + ' registros · ' + store.allPermAut.length + ' perm./aut.',
-      );
+      const permLine =
+        SKIP_PERM_AUT_URL
+          ? '(PERM E AUT sem URL em config)'
+          : `${store.allPermAut.length} perm./aut.`;
+      let statusKind = 'ok';
+      let statusMsg =
+        store.allData.length + ' registros · ' + permLine;
+      if (!SKIP_PERM_AUT_URL && permAutCsvFailed) {
+        statusKind = 'warn';
+        statusMsg +=
+          ' · PERM E AUT: CSV inacessível. Em Planilhas: Ficheiro → Partilhar → Publicar na web — incluir o documento inteiro ou a aba PERM E AUT e republicar. Teste o link CSV numa aba anónima (não deve pedir login).';
+      }
+      setStatus(statusKind, statusMsg);
       buildFilters();
       applyFilters();
     }
@@ -88,10 +99,21 @@ export function loadAll() {
       transformHeader: normalizeHeader,
       complete(r) {
         store.allPermAut = r.data || [];
+        console.log(
+          '[PERM E AUT CSV]',
+          'linhas:',
+          store.allPermAut.length,
+          'amostra:',
+          store.allPermAut.slice(0, 2),
+        );
         check();
       },
-      error() {
-        console.warn('Erro ao carregar PERM E AUT — verifique gid / publicação na web.');
+      error(err) {
+        permAutCsvFailed = true;
+        console.warn(
+          'Erro ao carregar PERM E AUT (republicar na web / gid):',
+          err || '',
+        );
         store.allPermAut = [];
         check();
       },

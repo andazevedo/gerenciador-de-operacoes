@@ -31,6 +31,9 @@ export function setStatus(kind, msg) {
   const txt = document.getElementById('status-text');
   if (txt && msg != null) txt.textContent = msg;
   if (!dot) return;
-  dot.className =
-    'dot' + (kind === 'loading' ? ' loading' : '') + (kind === 'error' ? ' error' : '');
+  let extra = '';
+  if (kind === 'loading') extra = ' loading';
+  else if (kind === 'error') extra = ' error';
+  else if (kind === 'warn') extra = ' warn';
+  dot.className = 'dot' + extra;
 }

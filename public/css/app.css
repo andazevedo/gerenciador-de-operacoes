@@ -18,6 +18,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;flex-shrink:0}
 .dot.loading{background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
 .dot.error{background:var(--red);box-shadow:0 0 6px var(--red)}
+.dot.warn{background:#d29922;box-shadow:0 0 6px rgba(210,153,34,.65);animation:none}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}

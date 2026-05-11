@@ -81,7 +81,7 @@ Fluxo típico: **`loadSheets.loadAll`** → **`filters.buildFilters` + `applyFil
 
 ## Integração externa
 
-- **Leitura:** CSV em `public/js/config.js` (`URL_REGISTRO`, `URL_MILITARES`, `URL_OPERACOES`, **`URL_PERM_AUT`** — substituir `SUBSTITUIR_GID_PERM_AUT` pelo gid da aba **PERM E AUT** na publicação na web); cabeçalhos com `normalizeHeader` em `public/js/utils/text.js`.
+- **Leitura:** CSV em `public/js/config.js` (`URL_REGISTRO`, `URL_MILITARES`, `URL_OPERACOES`, **`URL_PERM_AUT`** — usar o mesmo prefixo `/d/e/…/pub` das outras abas e o `gid` da folha (`#gid=` na URL ao editar a planilha). Cabeçalhos com `normalizeHeader` em `public/js/utils/text.js`.
 - **Escrita:** `URL_SCRIPT` em `public/js/config.js`; payloads com `action` (`nova_escala`, `novo_militar`, `nova_operacao`, **`nova_perm_aut`**). Código do script no repositório em `docs/appScript.txt` (copiar para o projeto Apps Script da planilha).
 
 ## Manutenção rápida
@@ -89,3 +89,11 @@ Fluxo típico: **`loadSheets.loadAll`** → **`filters.buildFilters` + `applyFil
 - **Colunas da tabela:** `TABLE_COLS` em `public/js/config.js`.
 - **URLs da planilha:** mesmas constantes em `public/js/config.js`.
 - **Handlers globais:** `public/js/main.js`.
+
+### Erro ao carregar PERM E AUT (`ServiceLogin`, `302`, `net::ERR_FAILED`)
+
+O site pede o CSV **sem login**. Se a folha nova não estiver na **publicação na web**, o Google responde com redirecionamento para `accounts.google.com` e o browser bloqueia o pedido.
+
+1. Na planilha: **Ficheiro → Partilhar → Publicar na web**.
+2. Publique **o documento completo** (recomendado) ou garanta que a aba **PERM E AUT** faz parte do que está publicado; se já tinha sido publicado antes de criar a aba, **pare e volte a publicar**.
+3. Abra `URL_PERM_AUT` (cópia de `public/js/config.js`) numa **janela anónima**: tem de descarregar CSV direto, sem página de login.

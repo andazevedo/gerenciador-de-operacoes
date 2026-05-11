@@ -151,7 +151,9 @@ export async function enviarPermAut() {
   setPaModalSaving(true);
 
   try {
-    await postNovaPermAut(payload);
+    console.log('[perm-aut] payload enviado', payload);
+    const res = await postNovaPermAut(payload);
+    console.log('[perm-aut] resposta tratada como sucesso', res);
     alert('Registro gravado na aba PERM E AUT.');
     closePermAutModal();
   } catch (err) {
