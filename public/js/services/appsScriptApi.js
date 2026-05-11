@@ -1,7 +1,7 @@
-import { URL_SCRIPT } from '../config.js';
-import { loadAll } from './loadSheets.js';
+import { URL_SCRIPT } from "../config.js";
+import { loadAll } from "./loadSheets.js";
 
-const GAS_LOG = '[GAS]';
+const GAS_LOG = "[GAS]";
 
 function reloadAfterMutation(action) {
   console.log(`${GAS_LOG} Recarregar dados em ~1s (após ${action})…`);
@@ -10,16 +10,17 @@ function reloadAfterMutation(action) {
 
 function optsFor(body) {
   const jsonBody = JSON.stringify(body);
-  if (body.action === 'nova_operacao') {
-    return { method: 'POST', body: jsonBody };
+  if (body.action === "nova_operacao") {
+    return { method: "POST", body: jsonBody };
   }
   const o = {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: jsonBody,
   };
   /** Apps Script Web App — explícito evita comportamentos estranhos em alguns navegadores. */
-  if (body.action === 'nova_escala' || body.action === 'nova_perm_aut') o.mode = 'cors';
+  if (body.action === "nova_escala" || body.action === "nova_perm_aut")
+    o.mode = "cors";
   return o;
 }
 
@@ -37,23 +38,28 @@ async function gasResponse(res, action) {
     ok: res.ok,
     status: res.status,
     bytes: text.length,
-    preview: text.slice(0, 280).replace(/\s+/g, ' '),
+    preview: text.slice(0, 280).replace(/\s+/g, " "),
   });
 
   if (!res.ok) {
     console.error(`${GAS_LOG} ${action} HTTP falhou`, text.slice(0, 400));
-    throw new Error(`HTTP ${res.status}${text ? ` — ${text.slice(0, 160)}` : ''}`);
+    throw new Error(
+      `HTTP ${res.status}${text ? ` — ${text.slice(0, 160)}` : ""}`,
+    );
   }
 
-  if (data == null || typeof data !== 'object') {
-    console.error(`${GAS_LOG} ${action} resposta não é JSON (cookie/login/HTML?)`, text.slice(0, 600));
+  if (data == null || typeof data !== "object") {
+    console.error(
+      `${GAS_LOG} ${action} resposta não é JSON (cookie/login/HTML?)`,
+      text.slice(0, 600),
+    );
     throw new Error(
-      'Resposta do script não é JSON. Confirme URL do deploy, permissões do Web App e abra Executions no Apps Script.',
+      "Resposta do script não é JSON. Confirme URL do deploy, permissões do Web App e abra Executions no Apps Script.",
     );
   }
 
   if (data.success !== true) {
-    const msg = String(data.error || 'Falha gravando na planilha');
+    const msg = String(data.error || "Falha gravando na planilha");
     console.error(`${GAS_LOG} ${action} success=false`, data);
     throw new Error(msg);
   }
@@ -63,7 +69,7 @@ async function gasResponse(res, action) {
 }
 
 async function gasFetch(body) {
-  const action = body?.action ?? '(sem action)';
+  const action = body?.action ?? "(sem action)";
   console.log(`${GAS_LOG} enviando POST`, action, body);
   const res = await fetch(URL_SCRIPT, optsFor(body));
   return gasResponse(res, action);
