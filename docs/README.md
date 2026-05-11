@@ -4,7 +4,18 @@ Aplicação **front-end estática**: HTML + CSS + JavaScript (**ES modules**), s
 
 ## Como executar
 
-Os módulos ES (`type="module"`) em muitos navegadores **não funcionam** ao abrir `index.html` via `file://`. Suba um servidor HTTP na raiz do repositório:
+Na raiz há um **`package.json` mínimo** (apenas scripts, sem dependências a instalar):
+
+- **`npm start`** — sobe um servidor estático com `serve`.
+- **`npm run build`** — **não gera artefatos**; só explica que o projeto é estático (evita erro de CI ou hábito de rodar `build`).
+
+Os módulos ES (`type="module"`) em muitos navegadores **não funcionam** ao abrir `index.html` via `file://`. Use um servidor HTTP na raiz, por exemplo:
+
+```bash
+npm start
+```
+
+ou:
 
 ```bash
 npx serve .

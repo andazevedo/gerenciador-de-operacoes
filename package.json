@@ -1,0 +1,9 @@
+{
+  "name": "gerenciador-de-operacoes",
+  "private": true,
+  "description": "Front estático (HTML/CSS/JS em ES modules). Sem bundler — não há compilação.",
+  "scripts": {
+    "start": "npx --yes serve .",
+    "build": "node -e \"console.log('\\nEste projeto não possui etapa de build.'); console.log('Arquivos finais na raiz: index.html, css/, js/'); console.log('Para testar localmente: npm start\\n'); process.exit(0);\""
+  }
+}
