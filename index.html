@@ -1446,10 +1446,6 @@ async function salvarOperacao(){
 
     await fetch(URL_SCRIPT,{
       method:'POST',
-      mode:'cors',
-      headers:{
-        'Content-Type':'text/plain;charset=utf-8'
-      },
       body:JSON.stringify({
         action:'nova_operacao',
         servico,
