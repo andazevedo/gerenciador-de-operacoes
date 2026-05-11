@@ -271,3 +271,20 @@ td.muted{color:var(--muted)}
   min-height:90px;
   resize:vertical;
 }
+
+/* PERMUTAS / AUTORIZAÇÕES */
+.perm-aut-title-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:4px}
+
+.perm-aut-dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:4px}
+
+.perm-aut-dash-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+
+.perm-aut-dash-name{font-weight:600;font-size:13px;color:var(--text)}
+
+.perm-aut-dash-meta{font-size:12px;color:var(--muted);margin-top:5px}
+
+.perm-aut-dash-sep{margin:0 4px;color:var(--border)}
+
+.badge-quota{background:rgba(224,92,0,.12);border:1px solid rgba(224,92,0,.38);color:var(--accent2);font-family:'Rajdhani',sans-serif;font-weight:700}
+
+tr.row-quota-warn{background:rgba(224,92,0,.05)}

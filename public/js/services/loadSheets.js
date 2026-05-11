@@ -1,11 +1,10 @@
-import { URL_REGISTRO, URL_MILITARES, URL_OPERACOES } from '../config.js';
+import { URL_REGISTRO, URL_MILITARES, URL_OPERACOES, URL_PERM_AUT } from '../config.js';
 import { store } from '../state/store.js';
 import { normalizeHeader, setStatus } from '../utils/text.js';
 import { buildFilters, applyFilters } from '../model/filters.js';
 
-/**
- * Serviço: carrega as 3 abas publicadas em CSV via Papa Parse.
- */
+const SKIP_PERM_AUT_URL = URL_PERM_AUT.includes('SUBSTITUIR_GID_PERM_AUT');
+
 export function loadAll() {
   setStatus('loading', 'Carregando dados...');
   let done = 0;
@@ -14,18 +13,21 @@ export function loadAll() {
     console.log(
       '⏳ check done=' +
         done +
-        ' | allData:' +
+        ' | registro:' +
         store.allData.length +
-        ' | allMilitares:' +
+        ' | mil:' +
         store.allMilitares.length +
-        ' | allOperacoes:' +
-        store.allOperacoes.length,
+        ' | op:' +
+        store.allOperacoes.length +
+        ' | permAut:' +
+        store.allPermAut.length,
     );
-    if (++done === 3) {
-      console.log('✅ Todas as abas carregadas!');
-      console.log('📌 Amostra MILITARES:', store.allMilitares.slice(0, 2));
-      console.log('📌 Amostra REGISTRO:', store.allData.slice(0, 2));
-      setStatus('ok', store.allData.length + ' registros carregados');
+    if (++done === 4) {
+      console.log('✅ Abas carregadas (incl. PERM E AUT).');
+      setStatus(
+        'ok',
+        store.allData.length + ' registros · ' + store.allPermAut.length + ' perm./aut.',
+      );
       buildFilters();
       applyFilters();
     }
@@ -71,4 +73,28 @@ export function loadAll() {
       check();
     },
   });
+
+  if (SKIP_PERM_AUT_URL) {
+    console.warn(
+      '[PERM E AUT] Defina o gid em config.js (URL_PERM_AUT). Aba ignorada até lá.',
+    );
+    store.allPermAut = [];
+    check();
+  } else {
+    Papa.parse(URL_PERM_AUT, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      transformHeader: normalizeHeader,
+      complete(r) {
+        store.allPermAut = r.data || [];
+        check();
+      },
+      error() {
+        console.warn('Erro ao carregar PERM E AUT — verifique gid / publicação na web.');
+        store.allPermAut = [];
+        check();
+      },
+    });
+  }
 }

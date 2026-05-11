@@ -13,6 +13,13 @@ export const URL_OPERACOES =
 export const URL_MILITARES =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=70108019&single=true&output=csv';
 
+/** Aba «PERM E AUT» — troque SUBSTITUIR_GID pelo gid da aba (URL da planilha #gid=… ou publicar na web). */
+export const URL_PERM_AUT =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5PjTtvdDEpIIVvOdiQJt_5-KbXYfdhtFRa4pJV_fJBUWFx9fngGXZT7qBw_6g9uj6Z3VpklX3Tnu/pub?gid=SUBSTITUIR_GID_PERM_AUT&single=true&output=csv';
+
+/** Trocas (permuta + autorização) por militar / mês antes de avisar cota. */
+export const PERM_AUT_COTA_MENSAL = 2;
+
 export const URL_SCRIPT =
   'https://script.google.com/macros/s/AKfycbwNRnXT4QjUBlLijDJUuyK2PKP-DSbpWy9H--mE7QqLlSHRVT8Y0xEHdUJ0_UJgorkDbA/exec';
 

@@ -6,6 +6,7 @@ export const store = {
   allData: [],
   allMilitares: [],
   allOperacoes: [],
+  allPermAut: [],
   filtered: [],
   currentPage: 1,
   sortCol: 'DATA',

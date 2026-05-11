@@ -1,0 +1,125 @@
+function doPost(e){
+
+  try{
+
+    const ss = SpreadsheetApp.openById('1YpvKbRPHRjIXD0tivF1_quuBA--3WVUJKZnbalM8Uu4');
+
+    const body = JSON.parse(e.postData.contents);
+
+    Logger.log(body);
+
+    const action = body.action;
+
+    // =========================
+    // NOVA ESCALA
+    // =========================
+
+    if(action === 'nova_escala'){
+
+      const sheet = ss.getSheetByName('REGISTRO');
+
+      if(!sheet){
+        throw new Error('Aba REGISTRO não encontrada');
+      }
+
+      const registros = body.registros || [];
+
+      registros.forEach(r => {
+
+        sheet.appendRow([
+          r.data,
+          r.numero,
+          r.militar,
+          r.servico,
+          r.tipo,
+          r.pagamento,
+          r.obs,
+          r.mes
+        ]);
+
+      });
+
+    }
+
+    // =========================
+    // NOVO MILITAR
+    // =========================
+
+    if(action === 'novo_militar'){
+
+      const sheet = ss.getSheetByName('MILITARES');
+
+      if(!sheet){
+        throw new Error('Aba MILITARES não encontrada');
+      }
+
+     sheet.appendRow([
+  body.ord,
+  body.militar,
+  body.nome,
+  body.cargo
+]);
+
+    }
+
+    // =========================
+    // NOVA OPERAÇÃO
+    // =========================
+
+    if(action === 'nova_operacao'){
+
+      const sheet = ss.getSheetByName('OPERACOES');
+
+      if(!sheet){
+        throw new Error('Aba OPERACOES não encontrada');
+      }
+
+      sheet.appendRow([
+        body.servico || '',
+        body.tipo || ''
+      ]);
+
+    }
+
+    // =========================
+    // PERM E AUT — permuta ou autorização
+    // =========================
+
+    if(action === 'nova_perm_aut'){
+
+      const sheet = ss.getSheetByName('PERM E AUT');
+
+      if(!sheet){
+        throw new Error('Aba PERM E AUT não encontrada');
+      }
+
+      sheet.appendRow([
+        body.data || '',
+        body.numero != null ? String(body.numero) : '',
+        body.mes || '',
+        body.ano != null ? String(body.ano) : '',
+        body.tipo || '',
+        body.detalhe || '',
+        body.obs || ''
+      ]);
+
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success:true
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  }catch(err){
+
+    Logger.log(err);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success:false,
+        error:String(err)
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

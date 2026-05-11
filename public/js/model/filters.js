@@ -5,6 +5,7 @@ import { renderChart } from '../views/chartView.js';
 import { renderHighlights } from '../views/highlightsView.js';
 import { renderRanking } from '../views/rankingView.js';
 import { renderTable } from '../views/tableView.js';
+import { renderPermAutAll } from '../views/permutaAutView.js';
 
 function fillSelect(id, values, useCap) {
   const sel = document.getElementById(id);
@@ -95,4 +96,5 @@ export function applyFilters() {
   renderHighlights();
   renderRanking();
   renderTable();
+  renderPermAutAll();
 }

@@ -13,6 +13,8 @@ import { setSort, goPage } from './views/tableView.js';
 import { toggleRanking, setRankSort } from './views/rankingView.js';
 import { openModal, closeModal, closeModalBtn, renderModalBody } from './views/modalDetailView.js';
 import * as forms from './controllers/formsController.js';
+import * as permAut from './controllers/permAutFormController.js';
+import { applyPermAutFilters } from './views/permutaAutView.js';
 
 Object.assign(window, {
   loadAll,
@@ -20,6 +22,7 @@ Object.assign(window, {
   buildFilters,
   resetFilters,
   resetFiltersRebuildAndApply,
+  applyPermAutFilters,
   setSort,
   goPage,
   toggleRanking,
@@ -39,6 +42,9 @@ Object.assign(window, {
   openOperacaoModal: forms.openOperacaoModal,
   closeOperacaoModal: forms.closeOperacaoModal,
   salvarOperacao: forms.salvarOperacao,
+  openPermAutModal: permAut.openPermAutModal,
+  closePermAutModal: permAut.closePermAutModal,
+  enviarPermAut: permAut.enviarPermAut,
 });
 
 loadAll();

@@ -72,13 +72,17 @@ Fluxo típico: **`loadSheets.loadAll`** → **`filters.buildFilters` + `applyFil
 ├── vercel.json
 ├── package.json
 └── docs/
-    └── README.md
+    ├── README.md
+    ├── planilha-permutas-autorizacoes.md   ← modelo da aba «Permutas e Autorizações»
+    └── exemplos/
+        ├── permutas-cabecalhos-opcao-a.csv
+        └── permutas-linha-modelo-opcao-a.csv
 ```
 
 ## Integração externa
 
-- **Leitura:** três URLs CSV em `public/js/config.js`; cabeçalhos CSV com `normalizeHeader` em `public/js/utils/text.js`.
-- **Escrita:** `URL_SCRIPT` em `public/js/config.js`; payloads com `action` (`nova_escala`, `novo_militar`, `nova_operacao`).
+- **Leitura:** CSV em `public/js/config.js` (`URL_REGISTRO`, `URL_MILITARES`, `URL_OPERACOES`, **`URL_PERM_AUT`** — substituir `SUBSTITUIR_GID_PERM_AUT` pelo gid da aba **PERM E AUT** na publicação na web); cabeçalhos com `normalizeHeader` em `public/js/utils/text.js`.
+- **Escrita:** `URL_SCRIPT` em `public/js/config.js`; payloads com `action` (`nova_escala`, `novo_militar`, `nova_operacao`, **`nova_perm_aut`**). Código do script no repositório em `docs/appScript.txt` (copiar para o projeto Apps Script da planilha).
 
 ## Manutenção rápida
 

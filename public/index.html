@@ -30,6 +30,9 @@
     <button class="btn-ghost" onclick="openEscalaModal()">
      ➕ Nova Escala
     </button>
+    <button class="btn-ghost" onclick="openPermAutModal()">
+      🔁 Permuta / Aut.
+    </button>
   </div>
 
   <!-- DASHBOARD -->
@@ -66,6 +69,56 @@
   <div class="highlight-box">
     <div class="section-title">Militar com Mais Participações por Mês</div>
     <div class="highlight-grid" id="highlight-grid"></div>
+  </div>
+
+  <!-- PERMUTAS E AUTORIZAÇÕES -->
+  <div class="highlight-box perm-aut-section">
+    <div class="perm-aut-title-row">
+      <div>
+        <div class="section-title" style="margin-bottom:6px">Permutas e Autorizações</div>
+        <p style="font-size:12px;color:var(--muted);max-width:720px">
+          Regra mensal: mais de <strong>2</strong> registros combinados (permuta ou autorização) para o mesmo militar no mesmo mês/ano aparece como aviso na coluna «Cota» — não bloqueia novos registros.
+        </p>
+      </div>
+      <button type="button" class="btn-ghost" onclick="openPermAutModal()" style="flex-shrink:0">
+        ➕ Nova permuta / autorização
+      </button>
+    </div>
+    <div class="filters-label" style="margin-top:8px">⚙ Filtros desta lista</div>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label>Militar</label>
+        <select id="f-pa-militar" onchange="applyPermAutFilters()"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Ano</label>
+        <select id="f-pa-ano" onchange="applyPermAutFilters()"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Mês</label>
+        <select id="f-pa-mes" onchange="applyPermAutFilters()"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Tipo</label>
+        <select id="f-pa-tipo" onchange="applyPermAutFilters()">
+          <option value="">Todos</option>
+          <option value="PERMUTA">PERMUTA</option>
+          <option value="AUTORIZAÇÃO">AUTORIZAÇÃO</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:18px">
+      <div class="modal-section-title" style="margin-bottom:10px">Ranking no período filtrado (total · permuta · autorização)</div>
+      <div id="perm-aut-dash"></div>
+    </div>
+  </div>
+
+  <div class="table-box">
+    <div class="table-head">
+      <div class="section-title" style="margin-bottom:0">Registros — aba PERM E AUT</div>
+      <div class="table-count" id="perm-aut-count">—</div>
+    </div>
+    <div id="perm-aut-table-body"></div>
   </div>
 
   <!-- FILTROS -->
@@ -339,6 +392,61 @@
 
   </div>
 
+</div>
+
+<!-- MODAL PERM E AUT -->
+<div class="modal-overlay" id="perm-aut-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Nova permuta / autorização</h2>
+      <button type="button" class="modal-close" onclick="closePermAutModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" id="pa-nova-data" lang="pt-BR">
+        </div>
+        <div class="form-group">
+          <label>Militar</label>
+          <select id="pa-nova-ord"></select>
+        </div>
+        <div class="form-group">
+          <label>Nome (cadastro MILITARES)</label>
+          <div id="pa-preview-nome" style="padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--muted)">—</div>
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="pa-nova-tipo">
+            <option value="PERMUTA">PERMUTA</option>
+            <option value="AUTORIZAÇÃO">AUTORIZAÇÃO</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Mês (coluna na planilha)</label>
+          <input type="text" id="pa-nova-mes" readonly style="opacity:.9">
+        </div>
+        <div class="form-group">
+          <label>Ano</label>
+          <input type="text" id="pa-nova-ano" readonly style="opacity:.9">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Detalhe</label>
+        <input type="text" id="pa-detalhe" placeholder="Ex.: contra quem / operação envolvida">
+      </div>
+      <div class="form-group">
+        <label>Obs</label>
+        <textarea id="pa-obs"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" onclick="closePermAutModal()">Cancelar</button>
+        <button type="button" class="btn-primary" id="btn-submit-perm-aut" disabled onclick="enviarPermAut()">Gravar na planilha</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="module" src="js/main.js"></script>
