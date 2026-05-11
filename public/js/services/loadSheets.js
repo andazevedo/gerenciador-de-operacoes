@@ -1,7 +1,7 @@
 import { URL_REGISTRO, URL_MILITARES, URL_OPERACOES } from '../config.js';
 import { store } from '../state/store.js';
 import { normalizeHeader, setStatus } from '../utils/text.js';
-import { buildFilters, applyFilters } from './filters.js';
+import { buildFilters, applyFilters } from '../model/filters.js';
 
 /**
  * Serviço: carrega as 3 abas publicadas em CSV via Papa Parse.
