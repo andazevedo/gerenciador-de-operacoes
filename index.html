@@ -1050,14 +1050,6 @@ function setRankSort(col){
   rankSortCol = col;
   renderRanking();
 }
-  function formatarDataBR(data){
-
-  if(!data) return '';
-
-  return new Date(data + 'T00:00:00')
-    .toLocaleDateString('pt-BR');
-
-}
 
 // ── MODAL ─────────────────────────────────────────────────────
 let modalOrd = null;
