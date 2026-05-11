@@ -285,6 +285,12 @@ td.muted{color:var(--muted)}
   <div class="status-bar">
     <div class="dot loading" id="dot"></div>
     <span id="status-text">Carregando dados...</span>
+    <button class="btn-ghost" onclick="openOperacaoModal()">
+  ⚡ Nova Operação
+</button>
+    <button class="btn-ghost" onclick="openMilitarModal()">
+  👤 Novo Militar
+</button>
     <button class="btn-ghost" onclick="openEscalaModal()">
      ➕ Nova Escala
     </button>
@@ -487,6 +493,111 @@ td.muted{color:var(--muted)}
   </div>
 </div>
  
+</div>
+  <!-- MODAL NOVO MILITAR -->
+<div class="modal-overlay" id="militar-modal-overlay">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>Novo Militar</h2>
+
+      <button class="modal-close" onclick="closeMilitarModal()">
+        ✕
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Antiguidade / ORD</label>
+          <input type="number" id="novo-mil-ord">
+        </div>
+
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" id="novo-mil-nome">
+        </div>
+
+        <div class="form-group">
+          <label>Cargo</label>
+          <input type="text" id="novo-mil-cargo">
+        </div>
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button class="btn-ghost" onclick="closeMilitarModal()">
+          Cancelar
+        </button>
+
+        <button class="btn-primary" onclick="salvarMilitar()">
+          Salvar Militar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+  <!-- MODAL NOVA OPERAÇÃO -->
+<div class="modal-overlay" id="operacao-modal-overlay">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>Nova Operação</h2>
+
+      <button class="modal-close" onclick="closeOperacaoModal()">
+        ✕
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Serviço / Operação</label>
+          <input type="text" id="nova-operacao-nome">
+        </div>
+
+        <div class="form-group">
+          <label>Tipo</label>
+
+          <select id="nova-operacao-tipo">
+            <option value="OPERAÇÃO">OPERAÇÃO</option>
+            <option value="EXTRA">EXTRA</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="modal-actions">
+
+        <button class="btn-ghost" onclick="closeOperacaoModal()">
+          Cancelar
+        </button>
+
+        <button class="btn-primary" onclick="salvarOperacao()">
+          Salvar Operação
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 <script>
@@ -1216,7 +1327,10 @@ async function enviarEscala(){
       headers:{
         'Content-Type':'application/json'
       },
-      body:JSON.stringify({ registros })
+     body:JSON.stringify({
+  action:'nova_escala',
+  registros
+})
     });
 
     const json = await res.json();
@@ -1233,6 +1347,155 @@ async function enviarEscala(){
   }catch(err){
     console.error(err);
     alert('Erro ao enviar dados.');
+  }
+}
+
+  // =========================
+// MODAL MILITAR
+// =========================
+
+function openMilitarModal(){
+
+  document.getElementById('militar-modal-overlay')
+    .classList.add('open');
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMilitarModal(){
+
+  document.getElementById('militar-modal-overlay')
+    .classList.remove('open');
+
+  document.body.style.overflow = '';
+}
+
+async function salvarMilitar(){
+
+  const ord = document.getElementById('novo-mil-ord').value;
+  const nome = document.getElementById('novo-mil-nome').value;
+  const cargo = document.getElementById('novo-mil-cargo').value;
+
+  if(!ord || !nome || !cargo){
+
+    alert('Preencha todos os campos.');
+    return;
+  }
+
+  try{
+
+    const res = await fetch(URL_SCRIPT, {
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify({
+        action:'novo_militar',
+        ord,
+        nome,
+        cargo
+      })
+    });
+
+    const json = await res.json();
+
+    if(json.success){
+
+      alert('Militar cadastrado!');
+
+      closeMilitarModal();
+
+      loadAll();
+
+    }else{
+
+      alert('Erro ao salvar.');
+      console.log(json);
+    }
+
+  }catch(err){
+
+    console.error(err);
+
+    alert('Erro ao enviar.');
+  }
+}
+
+// =========================
+// MODAL OPERAÇÃO
+// =========================
+
+function openOperacaoModal(){
+
+  document.getElementById('operacao-modal-overlay')
+    .classList.add('open');
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOperacaoModal(){
+
+  document.getElementById('operacao-modal-overlay')
+    .classList.remove('open');
+
+  document.body.style.overflow = '';
+}
+
+async function salvarOperacao(){
+
+  const servico =
+    document.getElementById('nova-operacao-nome').value;
+
+  const tipo =
+    document.getElementById('nova-operacao-tipo').value;
+
+  if(!servico){
+
+    alert('Informe o nome da operação.');
+    return;
+  }
+
+  try{
+
+    const res = await fetch(URL_SCRIPT, {
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify({
+        action:'nova_operacao',
+        servico,
+        tipo
+      })
+    });
+
+    const json = await res.json();
+
+    if(json.success){
+
+      alert('Operação cadastrada!');
+
+      closeOperacaoModal();
+
+      loadAll();
+
+    }else{
+
+      alert('Erro ao salvar.');
+      console.log(json);
+    }
+
+  }catch(err){
+
+    console.error(err);
+
+    alert('Erro ao enviar.');
   }
 }
 
