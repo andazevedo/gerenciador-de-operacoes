@@ -31,7 +31,7 @@ export const URL_PERM_AUT =
 export const PERM_AUT_COTA_MENSAL = 2;
 
 export const URL_SCRIPT =
-  "https://script.google.com/macros/s/AKfycbwO29xzTujLKqbHMxoZpdoLIPQlxs0OIUmbouArL-le4Ci1_1dRxG-tbiDEw9myhebcDg/exec";
+  "https://script.google.com/macros/s/AKfycbyPmJPT4aKiULrVMvWDgAw7IWrckCukakY26PwP2T6lp5udWw-WYh8BJowlTxYFsBMGpA/exec";
 
 export const TABLE_COLS = [
   { key: "DATA", label: "Data" },
