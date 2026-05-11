@@ -623,6 +623,11 @@ let sortDir      = 'asc';
 let escalaMilitares = [];
 const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwNRnXT4QjUBlLijDJUuyK2PKP-DSbpWy9H--mE7QqLlSHRVT8Y0xEHdUJ0_UJgorkDbA/exec';
 
+/** Google Sheets costuma gerar CSV com BOM no 1º cabeçalho e espaços — sem isso, r['DATA'] etc. ficam undefined. */
+function normalizeHeader(h){
+  return String(h||'').replace(/^\uFEFF/, '').trim();
+}
+
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function formatData(s){ 
   if(!s) return ''; 
@@ -652,17 +657,17 @@ function loadAll(){
   }
 
   Papa.parse(URL_REGISTRO, {
-    download:true, header:true, skipEmptyLines:true,
+    download:true, header:true, skipEmptyLines:true, transformHeader:normalizeHeader,
     complete(r){ allData = r.data || []; check(); },
-    error(){ setStatus('error','Erro ao carregar registros.'); }
+    error(){ setStatus('error','Erro ao carregar registros.'); check(); }
   });
   Papa.parse(URL_MILITARES, {
-    download:true, header:true, skipEmptyLines:true,
+    download:true, header:true, skipEmptyLines:true, transformHeader:normalizeHeader,
     complete(r){ allMilitares = r.data || []; check(); },
     error(){ check(); }
   });
   Papa.parse(URL_OPERACOES, {
-    download:true, header:true, skipEmptyLines:true,
+    download:true, header:true, skipEmptyLines:true, transformHeader:normalizeHeader,
     complete(r){ allOperacoes = r.data || []; check(); },
     error(){ check(); }
   });
