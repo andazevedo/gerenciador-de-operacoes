@@ -10,11 +10,16 @@ function doPost(e){
 
     const action = body.action;
 
+    /** Se esta versão do script não tiver o ramo da action, NÃO deve retornar success:true. */
+    let handled = false;
+
     // =========================
     // NOVA ESCALA
     // =========================
 
     if(action === 'nova_escala'){
+
+      handled = true;
 
       const sheet = ss.getSheetByName('REGISTRO');
 
@@ -47,6 +52,8 @@ function doPost(e){
 
     if(action === 'novo_militar'){
 
+      handled = true;
+
       const sheet = ss.getSheetByName('MILITARES');
 
       if(!sheet){
@@ -68,6 +75,8 @@ function doPost(e){
 
     if(action === 'nova_operacao'){
 
+      handled = true;
+
       const sheet = ss.getSheetByName('OPERACOES');
 
       if(!sheet){
@@ -87,6 +96,8 @@ function doPost(e){
 
     if(action === 'nova_perm_aut'){
 
+      handled = true;
+
       const sheet = ss.getSheetByName('PERM E AUT');
 
       if(!sheet){
@@ -105,9 +116,14 @@ function doPost(e){
 
     }
 
+    if(!handled){
+      throw new Error('Action não tratada pelo script implantado — implante código novo (nova_perm_aut?) ou typo: "' + String(action) + '"');
+    }
+
     return ContentService
       .createTextOutput(JSON.stringify({
-        success:true
+        success:true,
+        action:String(action || '')
       }))
       .setMimeType(ContentService.MimeType.JSON);
 
