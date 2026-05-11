@@ -493,7 +493,7 @@ td.muted{color:var(--muted)}
   </div>
 </div>
  
-</div>
+
   <!-- MODAL NOVO MILITAR -->
 <div class="modal-overlay" id="militar-modal-overlay">
 
@@ -616,7 +616,7 @@ let currentPage  = 1;
 let sortCol      = 'DATA';
 let sortDir      = 'asc';
 let escalaMilitares = [];
-const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbzL3X49uSwR7OwdRyd4AfioghRuYcxkuBVriLMeuMq9woNggJXyveyWu4IG6apysgcr8A/exec';
+const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwUe7hd9Ubz4pGmjW7nZBe4bGS7ZEZAbxGcgUcIqfsYj_lwyFv90LuT5YnQitWR7o6yZA/exec';
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function formatData(s){
@@ -1324,9 +1324,9 @@ async function enviarEscala(){
 
      await fetch(URL_SCRIPT, {
       method:'POST',
-       mode:'no-cors',
+       mode:'cors',
       headers:{
-        'Content-Type':'application/json'
+          'Content-Type':'text/plain;charset=utf-8'
       },
      body:JSON.stringify({
   action:'nova_escala',
@@ -1369,10 +1369,10 @@ function closeMilitarModal(){
 
 async function salvarMilitar(){
 
-  const ord      = document.getElementById('mil-ord').value;
-  const militar  = document.getElementById('mil-completo').value;
-  const nome     = document.getElementById('mil-nome').value;
-  const cargo    = document.getElementById('mil-cargo').value;
+  const ord      = document.getElementById('novo-mil-ord').value;
+  const militar  = document.getElementById('novo-mil-completo').value;
+  const nome     = document.getElementById('novo-mil-nome').value;
+  const cargo    = document.getElementById('novo-mil-cargo').value;
 
   if(!ord || !militar || !nome || !cargo){
     alert('Preencha todos os campos.');
@@ -1383,12 +1383,11 @@ async function salvarMilitar(){
 
     await fetch(URL_SCRIPT,{
       method:'POST',
-      mode:'no-cors',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'text/plain;charset=utf-8'
       },
       body:JSON.stringify({
-        novoMilitar:true,
+        action:'novo_militar',
         ord,
         militar,
         nome,
@@ -1435,8 +1434,8 @@ function closeOperacaoModal(){
 
 async function salvarOperacao(){
 
-  const servico = document.getElementById('op-servico').value;
-  const tipo    = document.getElementById('op-tipo').value;
+  const servico = document.getElementById('nova-operacao-nome').value;
+  const tipo    = document.getElementById('nova-operacao-tipo').value;
 
   if(!servico){
     alert('Digite o serviço.');
@@ -1447,12 +1446,12 @@ async function salvarOperacao(){
 
     await fetch(URL_SCRIPT,{
       method:'POST',
-      mode:'no-cors',
+      mode:'cors',
       headers:{
         'Content-Type':'application/json'
       },
       body:JSON.stringify({
-        novaOperacao:true,
+        action:'nova_operacao',
         servico,
         tipo
       })
