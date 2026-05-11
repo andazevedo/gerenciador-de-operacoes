@@ -625,20 +625,23 @@ const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwNRnXT4QjUBlLijDJUu
 
 function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
 function formatData(s){
-  if(!s) return '';
-  const d = new Date(s);
-  if(isNaN(d)) return s;
-  return d.toLocaleDateString('pt-BR');
-}
-function uniq(arr){ return [...new Set(arr)].filter(Boolean); }
-function sortMes(arr){ return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); }
 
-function setStatus(type, msg){
-  const dot = document.getElementById('dot');
-  const txt = document.getElementById('status-text');
-  dot.className = 'dot' + (type !== 'ok' ? ' '+type : '');
-  txt.textContent = msg;
-  txt.style.color = type === 'error' ? 'var(--red)' : '';
+  if(!s) return '';
+
+  // se vier yyyy-mm-dd
+  if(s.includes('-')){
+
+    const [ano, mes, dia] = s.split('-');
+
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  // se vier objeto Date
+  const d = new Date(s);
+
+  if(isNaN(d)) return s;
+
+  return d.toLocaleDateString('pt-BR');
 }
 
 // ── CARREGAR AS 3 ABAS ─────────────────────────────────────────
@@ -1055,6 +1058,14 @@ function setRankSort(col){
   rankSortDir = rankSortCol===col ? (rankSortDir==='asc'?'desc':'asc') : 'desc';
   rankSortCol = col;
   renderRanking();
+}
+  function formatarDataBR(data){
+
+  if(!data) return '';
+
+  return new Date(data + 'T00:00:00')
+    .toLocaleDateString('pt-BR');
+
 }
 
 // ── MODAL ─────────────────────────────────────────────────────
