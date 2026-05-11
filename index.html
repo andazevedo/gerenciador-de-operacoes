@@ -640,6 +640,16 @@ function formatData(s){
     return [...arr].sort((a,b)=>(MES_ORDER[a.toLowerCase()]||99)-(MES_ORDER[b.toLowerCase()]||99)); 
   }
 
+function setStatus(kind, msg){
+  const dot = document.getElementById('dot');
+  const txt = document.getElementById('status-text');
+  if(txt && msg!=null) txt.textContent = msg;
+  if(!dot) return;
+  dot.className = 'dot'
+    + (kind === 'loading' ? ' loading' : '')
+    + (kind === 'error' ? ' error' : '');
+}
+
 // ── CARREGAR AS 3 ABAS ─────────────────────────────────────────
 function loadAll(){
   setStatus('loading', 'Carregando dados...');
